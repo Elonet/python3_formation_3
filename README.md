@@ -1,6 +1,8 @@
+# Python 3 Formation 3
+
 ![Elonet](https://elonet.fr/img/logo.png)
 
-# Application Web
+# Introduction au web
 
 L'une des forces de Python c'est qu'il existe des bibliothèques pour à peu près tout , nous avons vu comment interagir avec nos programmes depuis la console, voyons comment interagir depuis de web.
 
@@ -13,16 +15,28 @@ La différence entre Djanog et Flask se situe dans les capacités présentes de 
 
 Nous allons étudier Flask, l'avantage de Flask est que la courbe de progression est plus douce que celle de Django et qu'il possède une syntaxe très lisible.
 
-Exemple d'une application affichant Hello World :
+Exemple d'une application affichant Hello World à l'adresse http://localhost:5552:
 ```python
 from flask import Flask
 app = Flask(__name__)
 @app.route("/")
 def hello():
     return "Hello World!"
+
+if __name__ == '__main__':  
+    import os  
+    HOST = os.environ.get('SERVER_HOST', 'localhost')  
+    try:  
+        PORT = int(os.environ.get('SERVER_PORT', '5552'))  
+    except ValueError:  
+        PORT = 5552  
+  
+  app.run(HOST, PORT, debug=True) # On Windows  
+  #app.run(HOST, PORT, debug=True, processes=3) # On Linux 
+  #app.run('0.0.0.0', 8000, processes=3) # On docker
 ```
  
-# Flask
+# 1- Flask
 
 Flask est une bibliothèque de type micro framework, c'est-à-dire qu'elle contient le strict minimum pour réaliser une application web, si nous souhaitons plus de fonctionnalités, il est possible d'installer des extensions.
 
@@ -87,7 +101,9 @@ runserver.py
 Le dossier app contient l'ensemble de notre application, il est composé de 2 fichiers :
 - `__init__.py` contient notre application
 - `routes.py` contient les fonctions correspondants aux routes
-`__init__.py`
+
+
+Fichier `app/__init__.py`
 
 ```python
 from flask import Flask  
@@ -97,7 +113,7 @@ app = Flask(__name__)
 from . import routes
 ```
 
-`routes.py`
+fichier `app/routes.py`
 ```python
 from app import app  
   
@@ -128,14 +144,15 @@ if __name__ == '__main__':
 
 En  lançant le fichier `runserver.py` nous pouvons accéder à notre service à l'adresse `http://localhost:5552` 
 
-# Templating
+# 2 - Templating
 
 Flask possède un puissant moteur de template nommé Jinja2, celui-ci nous permet de générer des pages HTML paramétrables.
 
 Créons un dossier `templates` dans le dossier `app`, Flask ira directement chercher les templates dans ce dossier.
 
 Prenons une page simple page HTML affichant un message:
-`hello.html`
+
+Fichier `app/templates/hello.html`
 ```html
 <!doctype html>
 <html lang="fr">
@@ -172,11 +189,12 @@ Pour réaliser cela, créons un fichier `base.html` qui contiendra un élément 
 
 Pour définir un bloc la syntaxe est `{% block <block_name> %}{% endblock %}`.
 
+Fichier `app/templates/base.html`
 ```html
 <!doctype html>
 <html lang="fr">
   <head>
-    <title>{{ Title }}</title>
+    <title>{{ title }}</title>
   </head>
   <body>
     {% block content %}{% endblock %}
@@ -189,6 +207,7 @@ Créons maintenant un fichier `home.html` qui contiendra la page d’accueil.
 Pour cela nous allons redéfinir le bloc `content` de la page `base.html`
 Pour étendre une page, la syntaxe est `{% extends "<name>.html" %}`.
 
+Fichier `app/templates/home.html`
 ```html
 {% extends "base.html" %}
 {% block content %}
@@ -196,8 +215,8 @@ Pour étendre une page, la syntaxe est `{% extends "<name>.html" %}`.
 {% endblock %}
 ```
 
-Appelons maintenant notre page dans le fichier `routes.py
-`
+Appelons maintenant notre page dans le fichier `routes.py`
+
 ```python
 from flask import render_template  
 from app import app  
@@ -217,6 +236,7 @@ Nous avons vu comment passer des types de variables simples à une page HTML, ma
 
 Exemple pour un objet et un dictionnaire dans un fichier `users.html` :
 
+Fichier `app/templates/users.html`
 ```html
 {% extends "base.html" %}
 {% block content %}
@@ -256,8 +276,9 @@ Le moteur Jinja2 nous permet de réaliser des boucles sur des objets itérables 
 
 La syntaxe pour réaliser une boucle est : `{% for <var_name> in <parameter> %} .... {% endfor %}`, le code HTML contenu à l'intérieur du bloc sera répété autant de fois qu'il y a d'élément dans la variable.
 
-Reprenons notre exemple `users.py` et insérons une boucle pour afficher une liste d'utilisateurs : 
+Reprenons notre exemple `users.html` et insérons une boucle pour afficher une liste d'utilisateurs : 
 
+Fichier `app/templates/users.html`
 ```html
 {% extends "base.html" %}
 {% block content %}
@@ -268,7 +289,7 @@ Reprenons notre exemple `users.py` et insérons une boucle pour afficher une lis
     </div>
     
     <br>
-    {% endfor %>
+    {% endfor %}
 </div>
 {% endblock %}
 ```
@@ -296,11 +317,12 @@ Il est aussi possible de réaliser des conditions dans nos pages HTML à l'aide 
 {% if <condition> %}
 {% elif <condition> %}
 {% else %}
-{% endif %]
+{% endif %}
 ```
 
-Reprenons notre fichier `users.py` et ajoutons une erreur si le paramètre `users` n'est pas fourni :
+Reprenons notre fichier `users.html` et ajoutons une erreur si le paramètre `users` n'est pas fourni :
 
+Fichier `app/templates/users.html`
 ```html
 {% extends "base.html" %}
 {% block content %}
@@ -312,9 +334,9 @@ Reprenons notre fichier `users.py` et ajoutons une erreur si le paramètre `user
         </div>
     
         <br>
-        {% endfor %>
+        {% endfor %}
     
-    {% else % }
+    {% else %}
         <p>Alert ! Users is None</p>
     
     {% endif %}
@@ -327,9 +349,11 @@ Essayez de ne plus fournis le paramètre `users` dans le fichier `routes.py`, la
 Les conditions nous permettent par exemple d'afficher des éléments uniquement si l'utilisateur est connecté.
 
 ## Fichiers statiques
-En général qui dit application web dit feuille de style et scripts, par défaut Flask va chercher les fichiers statiques dans le dossier `static` de votre application.
+En général qui dit application web dit feuille de style et scripts, par défaut Flask va chercher les fichiers statiques dans le dossier `static` de votre application, en interne Flask possède une fonction pour gérer les fichiers statiques.
 
 Créons un dossier `static` dans le dossier `app` et ajoutons un fichier `default.css`
+
+Fichier `app/static/default.css`
 ```css
 h1 {
     color: green;
@@ -338,15 +362,16 @@ h1 {
 
 Modifions maintenant notre fichier `base.html` pour inclure cette nouvelle feuille de style.
 
-Pour avoir l'URL de notre fichier, nous allons utiliser `url_for` qui permet d'avoir la route d'une fonction.
+Pour avoir l'URL de notre fichier, nous allons utiliser `url_for` qui permet d'avoir la route d'une fonction, ici nous souhaitons accéder à la fonction de gestion des fichiers statiques.
 
 Profitons-en pour créer un bloc `style` qui contient nos feuilles de style, de cette manière nous pourrons étendre le bloc dans des pages enfantes en utilisant `{{ super() }}`.
 
+Fichier `app/templates/base.html`
 ```html
 <!doctype html>
 <html lang="fr">
 <head>
-    <title>{{ Title }}</title>
+    <title>{{ title }}</title>
     {% block style %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='default.css') }}">
     {% endblock %}
@@ -357,14 +382,16 @@ Profitons-en pour créer un bloc `style` qui contient nos feuilles de style, de 
 </html>
 ```
 
-Nous pouvons même créer un système de thème à l'aide des conditions, créons un fichier `blue.css`
+Nous pouvons même créer un système de thème à l'aide des conditions, créons un fichier `blue.css` et `red.css`
 
+Fichier `app/static/blue.css`
 ```css
 h1 {
     color: blue;
 }
 ```
-et `red.css`
+
+Fichier `app/static/red.css`
 ```css
 h1 {
     color: red;
@@ -373,11 +400,12 @@ h1 {
 
 Modifions de nouveau notre fichier `base.html`
 
+Fichier `app/templates/base.html`
 ```html
 <!doctype html>
 <html lang="fr">
 <head>
-    <title>{{ Title }}</title>
+    <title>{{ title }}</title>
     {% block style %}
     {% if theme == 'blue' %}
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='blue.css') }}">
@@ -406,9 +434,38 @@ def home():
     )
 ```
 
-## Messages flash
+# 3 - Configuration 
+
+Chaque application Flask possède une configuration qu'il est possible de lire ou de modifier, certainnes fonctions ou extensions nécessites d'ajouter une valeur à la configuration.
+
+## Usage
+Pour modifier la configuration de notre application, il faut modifier le dictionnaire `config` de notre objet `app`
+
+Fichier `app/__init__.py`
+```python
+from flask import Flask  
+  
+app = Flask(__name__)
+app.config['MY_KEY'] = 'ma_valeur' 
+  
+from . import routes
+```
+
+# 4 - Messages flash
 
 Les messages flash sont un moyen de stocker des messages qui seront accessibles une seule fois, ils sont pratiques, car ils peuvent être utilisés d'une page à l'autre.
+
+L'utilisation des messages flash nécessite que la valeur `SECRET_KEY` soit définie dans notre application
+
+Fichier `app/__init__.py`
+```python
+from flask import Flask  
+  
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'my_secret_key'
+  
+from . import routes
+```
 
 Pour ajouter un message flash, il suffit d'utiliser la fonction `flash` qui prend en paramètre le message à stocker.
 
@@ -416,6 +473,9 @@ Nous pouvons ensuite récupérer les messages flash à l'aide de la fonction `ge
 
 Exemple :
 ```python
+from flask import render_template, flash, redirect
+...
+
 @app.route('/')
 def index():
     flash('Redirection depuis index')
@@ -426,6 +486,7 @@ def home():
     return render_template('home.html', title='Home')
 ```
 
+Fichier `app/templates/home.html`
 ```html
 {% extends "base.html" %}
 {% block content %}
@@ -445,7 +506,7 @@ def home():
 
 Le mot clé `with` permet de créer un bloc et de limiter la portée des variables, ainsi `messages` et uniquement disponible dans le bloc `{% with ... %}{% endwith %}`
 
-# Formulaires
+# 5 - Formulaires
 
 Pour gérer les formulaires de manière simple, nous allons ajouter l'extension `flask-wtf`.
 
@@ -457,20 +518,10 @@ Cette extension nous permet de traiter les formulaires sous forme d'objet et d'a
 pip install flask-wtf
 ```
 
-Pour fonctionner, `flask-wtf` nécessite de configurer une clé secrète `SECRET_KEY` dans notre application.
-
-Cette clé est utilisée par `flask-wtf` pour vérifier que le résultat du formulaire provient bien de l'application.
-
-L'objet Flask contient un dictionnaire de la configuration de l'application, pour le modifier ou le lire il suffit de fournir la clé, ici `SECRET_KEY`.
-
-```python
-from flask import Flask  
-  
-app = Flask(__name__)  
-app.config['SECRET_KEY'] = 'my_secret_key'
-``` 
+Pour fonctionner, `flask-wtf` nécessite que la valeur `SECRET_KEY` soit définie dans notre application
 
 ## Usage
+
 `flask-wtf` nous permet de considérer les formulaires comme des objets, pour cela il suffit d'étendre l'objet `FlaskForm` présent dans `flask-wtf`.
 
 Chaque attribut de l'objet représente un champ du formulaire, et chaque attribut possède un type de champ.
@@ -485,6 +536,7 @@ Le formulaire contient :
 - Un champ obligatoire pour le mot de passe
 - Un bouton permettant de valider le formulaire
 
+Fichier `app/forms.py`
 ```python
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
@@ -500,6 +552,7 @@ Créons une page `login.html` qui hérite de la page `base.html` et qui contient
 
 Cette page prend en paramètre un formulaire à afficher.
 
+Fichier `app/templates/login.html`
 ```html
 {% extends "base.html" %}
 {% block content %}
@@ -526,6 +579,9 @@ Cette page prend en paramètre un formulaire à afficher.
 Appelons maintenant notre fichier `login.html` dans le fichier `routes.py`
 
 ```python
+from .forms import LoginForm()
+...
+
 @app.route('/login')
 def login():
     form = LoginForm()
@@ -546,6 +602,10 @@ Si le formulaire contient des règles de validation et que celles-ci ne sont pas
 
 Pour récupérer les valeurs d'un formulaire, il faut ajouter la méthode POST à notre route.
 
+Le décorateur `@app.route` peux définir une route (unique exemple vue jusque ici) mais aussi les méthodes HTTP que nous acceptons de traiter ou non, par défaut une route accepte uniquement la méthode HTTP `GET`
+
+Pour accepter plus de méthodes, il faut ajouter `methods=[]` au décorateur.
+
 Si le formulaire est valide, nous redirigeons l'utilisateur sur la page d’accueil de notre service, sinon nous affichons de nouveau le formulaire.
 
 ```python
@@ -560,19 +620,19 @@ def login():
 
 A l'aide de `DataRequired` nous sommes sûrs de récupérer un nom d'utilisateur et un mot de passe, charge à nous de vérifier si l'utilisateur existe.
 
-# ORM
+# 6 - ORM
 
 Les ORM sont des bibliothèques de mapping objet-relationnel qui nous permettent de "stocker" des objets Python dans nos bases de données.
 
 En respectant une syntaxe propre à chaque ORM, nous n’avons plus besoin d'écrire du langage de base de données pour accéder à nos données.
 
-# SQLAlchemy
+## SQLAlchemy
 
 SQLAlchemy est la bibliothèque ORM de référence en Python pour interagir avec une base SQL, elle gère toutes les bases de données de type SQL (ou presque toutes)
 
-La version Flask de la bibliothèque s'appelle `flask-sqlachemy`
+La version Flask de la bibliothèque s'appelle `flask-sqlalchemy`
 
-### Installation
+## Installation
 
 ```
 pip install flask-slqalchemy
@@ -580,10 +640,11 @@ pip install flask-slqalchemy
 
 `flask-sqlalchemy` nécessite 2 configurations supplémentaires :
 - `SQLALCHEMY_DATABASE_URI` qui est l'URI de la base de données
-- `SQLALCHEMY_TRACK_MODIFICATIONS` qui permet de rendre `flask-sqlachemy` moins verbeux et plus rapide
+- `SQLALCHEMY_TRACK_MODIFICATIONS` qui permet de rendre `flask-sqlalchemy` moins verbeux et plus rapide
 
 Exemple pour une base de données SQLite `app.db` contenue dans notre dossier `app`
 
+Fichier `app/__init__.py`
 ```python
 import os
 from flask import Flask
@@ -593,10 +654,13 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'my_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+from . import routes
 ```
 
 Il faut ensuite créer un objet `SQLAlchemy` qui prend en paramètre notre application Flask
 
+Fichier `app/__init__.py`
 ```python
 import os
 from flask import Flask
@@ -609,12 +673,13 @@ app.config['SECRET_KEY'] = 'my_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+
 from . import routes
 ```
 
-### Déclaration
+## Déclaration
 
-`flask-sqlalchemy` nous permet de "stocker" nos objets en base de données, pour cela il suffit d'étendre l'objet `Model` présent dans `SQLAlchemy`.
+`flask-sqlalchemy` nous permet de "stocker" nos objets en base de données, pour cela il suffit d'étendre la classe `Model` présent dans `SQLAlchemy`.
 
 Chaque objet représente une table de la base et chaque attribut représente une colonne.
 
@@ -622,6 +687,7 @@ Chaque colonne contient un type de données défini, il est possible d'ajouter d
 
 Créons un fichier `models.py` qui contient un objet représentant un utilisateur du système.
 
+Fichier `app/models.py`
 ```python
 from app import db
 
@@ -638,7 +704,9 @@ Pour créer notre base à partir de notre code, il existe plusieurs solutions te
 
 Pour cela il faut importer l'ensemble des objets du modèle et utiliser la méthode `create_all`
 
+Ficier `app/__init__.py`
 ```python
+...
 db = SQLAlchemy(app)  
   
 from . import routes  
@@ -652,7 +720,7 @@ Ainsi notre base de données sera créée au démarrage de l'application si elle
 
 L'inconvénient de cette méthode est que si un objet de l'ORM est modifié, il faut supprimer la base de données.
 
-### Nom de table
+## Nom de table
 
 SQLAlchemy utilise le nom de notre objet pour créer un nom de table, ainsi la classe `User` donne le nom de table `user`.
 
@@ -670,7 +738,7 @@ class User(db.Model):
     password_hash = db.Column(db.String(128), nullable=False)
 ```
 
-### Usage
+## Usage
 
 Testons notre classe `User`, pour cela plaçons notre terminal dans le dossier de notre application et lançon Python 3
 
@@ -684,7 +752,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>>
 ```
 
-#### Insertion
+### Insertion
 Pour insérer un utilisateur, il suffit de créer un nouvel objet et de le fournir à l'objet `db`.
 
 L'objet `db` contient un objet `session`, comme en SQL, nos modifications sont enregistrées en base seulement si nous réalisons un `commit`.
@@ -717,7 +785,7 @@ sqlite3.IntegrityError: UNIQUE constraint failed: user.username
 >>> db.session.rollback()
 ```
 
-#### Récupérer un objet à partir de son identifiant
+### Récupérer un objet à partir de son identifiant
 Pour récupérer un objet à partir de son identifiant on utilise l'attribut `query` de l'objet `Model` (la classe mère de nos objets).
 
 Cet attribut possède une méthode `get` qui attend la valeur de la clé primaire permettant d'identifier l'objet, en retour elle retourne l'objet si il existe, sinon `None`
@@ -733,7 +801,7 @@ Cet attribut possède une méthode `get` qui attend la valeur de la clé primair
 True
 ```
 
-#### Récupérer des objets  
+### Récupérer des objets  
 
 La recherche d'un objet utilise aussi l'attribut `query`.
 
@@ -749,7 +817,7 @@ Nous pouvons récupérer l'ensemble des objets à l'aide de `all` et le premier 
 >>>
 ```
 
-#### Recherche d'un objet
+### Recherche d'un objet
 La recherche d'un objet utilise aussi l'attribut `query`, cette fois nous utilisons la méthode `filter_by` qui attend le nom de l'attribut et la valeur recherchée.
 
 Cette méthode retourne un objet de type `query`, nous pouvons donc récupérer l'ensemble des éléments avec `all` et le premier avec `first`.
@@ -769,7 +837,7 @@ Cette méthode retourne un objet de type `query`, nous pouvons donc récupérer 
 True
 ```
 
-#### Modification d'un objet
+### Modification d'un objet
 Pour modifier un objet, il suffit de modifier ses attributs et de l'ajouter de nouveau à notre base de données, SQLAlchemy fait la mise à jour de manière transparente.
 
 Il ne faut pas oublier d'utiliser la méthode `commit` pour enregistrer les modifications dans la base de données.
@@ -787,7 +855,7 @@ Il ne faut pas oublier d'utiliser la méthode `commit` pour enregistrer les modi
 >>>
 ```
 
-#### Supprimer un objet
+### Supprimer un objet
 Pour supprimer un objet, il suffit de le fournir à notre objet `db` à l'aide de la méthode `delete`.
 
 Il ne faut pas oublier d'utiliser la méthode `commit` pour enregistrer les modifications dans la base de données.
@@ -808,11 +876,11 @@ Il ne faut pas oublier d'utiliser la méthode `commit` pour enregistrer les modi
 >>>
 ```
 
-### Relations
+## Relations
 
 Qui dit base de données relationnelle dit relation, SQLAlchemy nous permet de les définir très facilement. voyons la plus courante, one to many 
 
-#### One to many
+### One to many
 
 Prenons l'exemple d'un forum, ce forum est composé de topics et chaque topic contient des messages d'utilisateurs.
 
@@ -884,7 +952,7 @@ Exemple :
 'Test'
 ``` 
 
-# Authentification
+# 7 - Authentification
 
 L'extension `flask-login` nous permet de mettre en place très simplement un système d'authentification utilisateur.
 
@@ -895,6 +963,8 @@ pip install flask-login
 ```
 
 Il faut ensuite créer un objet `LoginManager` et lui fournir notre application
+
+Fcihier `app/__init__.py`
 ```python
 import os
 from flask import Flask
@@ -914,6 +984,7 @@ Modifions notre classe utilisateur en héritant de la classe `UserMixin` et en r
 Pour la sécurisation du mot de passe, nous allons utiliser la fonction `generate_password_hash` présente dans `werkzeug.security`.
 `werkzeug` est un package installé en même temps que Flask.
 
+Fichier `app/models.py`
 ```python
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -932,6 +1003,7 @@ class User(UserMixin, db.Model):
     def verify_password(self, pwd):
         return check_password_hash(self.password_hash, pwd)
 ```
+
 Usage :
 ```python
 >>> from app.models import User, db
@@ -947,10 +1019,13 @@ True
 ```
 
 ## Loader
+
 Il faut ensuite indiquer à `flask-login` comment charger notre utilisateur, en effet selon la technologie de base de données utilisée (SQL ou NOSQL), la récupération d'un utilisateur diffère.
+
 
 Pour cela on utilise le décorateur `@login.user_loader` et on fournit une fonction chargée de récupérer un utilisateur à partir de son identifiant.
 
+Fichier `app/models.py`
 ```python
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -973,6 +1048,7 @@ class User(UserMixin, db.Model):
     def verify_password(self, pwd):
         return check_password_hash(self.password_hash, pwd)
 ```
+
 ## Authentification
 
 Nous pouvons maintenant authentifier nos utilisateurs, reprenons notre fichier `routes.py` et complétons notre route de login.
@@ -1034,6 +1110,7 @@ def logout():
     logout_user()
     return redirect('/')
 ```
+
 ## Protection des routes
 
 Si on souhaite que certaines routes soient uniquement accessibles aux utilisateurs connectés, il est possible de les protéger à l'aide du décorateur `@login_required`.
@@ -1078,6 +1155,8 @@ def login():
 Il faut ensuite indiquer à `flask-login` la route à utiliser pour effectuer un processus de connexion, pour cela on fournit le nom de la **fonction** qui correspond à la route.
 
 Ici notre fonction s'appelle `login`
+
+Fichier `app/__init__.py`
 ```python
 import os  
 from flask import Flask  
@@ -1134,7 +1213,7 @@ def logout():
     return redirect('/')
 ```
 
-# BootStrap
+# 8 - BootStrap
 BootStrap est parfait quand il s'agit des créer des applications web un peu jolies en un minimum de temps.
 
 Comme nous l'avons vu, `flask-wtf` produit lui-même le code HTML des champs de nos formulaires, ce qui peut poser problème avec des frameworks web type BootStrap qui possèdent leurs propres structures de code.
@@ -1142,6 +1221,7 @@ Comme nous l'avons vu, `flask-wtf` produit lui-même le code HTML des champs de 
 Face à ça 2 solutions :
 - Créer les composants pour Jinja 2 à l'aide des macros (non abordé dans les formations)
 - Utiliser une bibliothèque le faisant déjà pour nous.
+
 Nous allons voir la seconde approche qui permet de rapidement prototyper des applications.
 
 Nous allons utiliser `flask-bootstrap` qui contient la version 3 de BootStrap
@@ -1172,6 +1252,7 @@ L'utilisation du plugin repose sur le moteur Jinja 2, désormais nos pages HTML 
 Nous avons ensuite à insérer notre code dans les différents blocs de la page.
 
 Parmi les blocs à notre disposition, nous avons :
+
 | Bloc | Fonction |
 |--|--|
 | title | Contiens le titre |
@@ -1179,6 +1260,7 @@ Parmi les blocs à notre disposition, nous avons :
 | navbar | Contiens la navbar |
 | content | Contiens le contenu de notre page |
 | scripts | Contiens nos scripts |
+
 
 Dans le cas des blocs `styles` et `scripts`, il est important d'utiliser `{{ super() }}` afin de ne pas perdre les lignes présentes dans les blocs parents
 
@@ -1287,15 +1369,15 @@ Le code HTML de la navbar provient de la documentation de Bootstrap
 {% endblock %}
 ```
 
-# Structure de code
+# 9 - Structure de code
 
-Avant d'aller plus loin, nous allons aborder quelques bonnes pratiques pour rendre notre code modulaire
+Avant d'aller plus loin, nous allons aborder quelques bonnes pratiques pour rendre notre code modulable
 
 ## Fichier de configuration
 
 Jusqu’à présent nous avons défini nos paramètres en dur dans notre package `app`, mais nous pouvons stocker la configuration dans un fichier Python et le fournir à Flask pour le réaliser la configuration.
 
-Créons un fichier `config.py`:
+Créons un fichier `config.py` à la racine de notre projet :
 ```python
 import os
 
@@ -1383,6 +1465,7 @@ Pour répondre à ce problème, les extensions Flask possèdent une méthode `in
 
 Créons un fichier `extensions.py` dans notre dossier `app` qui contient l'ensemble de nos extensions.
 
+Fichier `app/extentions.py`
 ```python
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -1395,6 +1478,7 @@ bootstrap = Bootstrap()
 
 Modifions maintenant notre fichier `__init__.py` pour initialiser les extensions :
 
+Fichier `app/__init__.py`
 ```python
 from flask import Flask
 from config import config
@@ -1439,6 +1523,7 @@ Cette approche est très pratique, car nous encapsulons des morceaux entiers d'a
 
 Créons un dossier `public` dans notre dossier `app`, et ajoutons un fichier `__init__.py`
 
+Fichier `app/public/__init__.py`
 ```python
 from flask import Blueprint  
   
@@ -1579,6 +1664,7 @@ Avec cette approche nous pouvons par exemple activer ou désactiver des morceaux
 ```python
 blueprint = Blueprint('dev', __name__, url_prefix='/dev')
 ```
+
 ```python
 from flask import Flask
 from config import config
@@ -1597,12 +1683,12 @@ def create_app(config_name='default'):
     return app
 ```
 
-# Service REST
+# 10 - Service REST
 
 L'architecture REST est un ensemble de conventions et de bonnes pratiques pour la création d'application Web via le protocole HTTP.
 Dans une architecture REST, les communications sont de type client-serveur et stateless (sans état), c'est- à dire qu'il n'existe pas de session, chaque communication doit contenir l'ensemble des informations nécessaires à la réalisation de l'action.
 
-# Flask RestPlus
+## Flask RestPlus
 Flask Restplus est une extension de Flask qui permet de créer rapidement des API REST documentées et facilitant les tests.
 
 Elle permet de considérer les routes HTTP sous forme d'objet.

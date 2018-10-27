@@ -13,38 +13,48 @@
     <div class="stackedit__toc">
       
 <ul>
-<li><a href="#application-web">Application Web</a></li>
-<li><a href="#flask">Flask</a>
+<li><a href="#python-3-formation-3">Python 3 Formation 3</a></li>
+<li><a href="#introduction-au-web">Introduction au web</a></li>
+<li><a href="#flask">1- Flask</a>
 <ul>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#routes">Routes</a></li>
 <li><a href="#structure-de-code">Structure de code</a></li>
 </ul>
 </li>
-<li><a href="#templating">Templating</a>
+<li><a href="#templating">2 - Templating</a>
 <ul>
 <li><a href="#découpage-des-fichiers">Découpage des fichiers</a></li>
 <li><a href="#paramètres">Paramètres</a></li>
 <li><a href="#boucles">Boucles</a></li>
 <li><a href="#conditions">Conditions</a></li>
 <li><a href="#fichiers-statiques">Fichiers statiques</a></li>
-<li><a href="#messages-flash">Messages flash</a></li>
 </ul>
 </li>
-<li><a href="#formulaires">Formulaires</a>
+<li><a href="#configuration">3 - Configuration</a>
+<ul>
+<li><a href="#usage">Usage</a></li>
+</ul>
+</li>
+<li><a href="#messages-flash">4 - Messages flash</a></li>
+<li><a href="#formulaires">5 - Formulaires</a>
 <ul>
 <li><a href="#installation-">Installation :</a></li>
-<li><a href="#usage">Usage</a></li>
+<li><a href="#usage-1">Usage</a></li>
 <li><a href="#récupérer-les-valeurs-dun-formulaire">Récupérer les valeurs d’un formulaire</a></li>
 </ul>
 </li>
-<li><a href="#orm">ORM</a></li>
-<li><a href="#sqlalchemy">SQLAlchemy</a>
+<li><a href="#orm">6 - ORM</a>
 <ul>
-<li></li>
+<li><a href="#sqlalchemy">SQLAlchemy</a></li>
+<li><a href="#installation-1">Installation</a></li>
+<li><a href="#déclaration">Déclaration</a></li>
+<li><a href="#nom-de-table">Nom de table</a></li>
+<li><a href="#usage-2">Usage</a></li>
+<li><a href="#relations">Relations</a></li>
 </ul>
 </li>
-<li><a href="#authentification">Authentification</a>
+<li><a href="#authentification">7 - Authentification</a>
 <ul>
 <li><a href="#installation-2">Installation</a></li>
 <li><a href="#modèle">Modèle</a></li>
@@ -54,27 +64,27 @@
 <li><a href="#protection-des-routes">Protection des routes</a></li>
 </ul>
 </li>
-<li><a href="#bootstrap">BootStrap</a>
+<li><a href="#bootstrap">8 - BootStrap</a>
 <ul>
 <li><a href="#installation-3">Installation</a></li>
-<li><a href="#usage-2">Usage</a></li>
+<li><a href="#usage-3">Usage</a></li>
 <li><a href="#formulaires-1">Formulaires</a></li>
 <li><a href="#navbar">Navbar</a></li>
 </ul>
 </li>
-<li><a href="#structure-de-code-1">Structure de code</a>
+<li><a href="#structure-de-code-1">9 - Structure de code</a>
 <ul>
 <li><a href="#fichier-de-configuration">Fichier de configuration</a></li>
 <li><a href="#usine-à-application">Usine à application</a></li>
 </ul>
 </li>
-<li><a href="#service-rest">Service REST</a></li>
-<li><a href="#flask-restplus">Flask RestPlus</a>
+<li><a href="#service-rest">10 - Service REST</a>
 <ul>
+<li><a href="#flask-restplus">Flask RestPlus</a></li>
 <li><a href="#swagger">Swagger</a></li>
 <li><a href="#postman">Postman</a></li>
 <li><a href="#installation-4">Installation</a></li>
-<li><a href="#usage-3">Usage</a></li>
+<li><a href="#usage-4">Usage</a></li>
 <li><a href="#structure-de-code-2">Structure de code</a></li>
 <li><a href="#serializers">Serializers</a></li>
 <li><a href="#endpoints">Endpoints</a></li>
@@ -86,8 +96,9 @@
   </div>
   <div class="stackedit__right">
     <div class="stackedit__html">
-      <p><img src="https://elonet.fr/img/logo.png" alt="Elonet"></p>
-<h1 id="application-web">Application Web</h1>
+      <h1 id="python-3-formation-3">Python 3 Formation 3</h1>
+<p><img src="https://elonet.fr/img/logo.png" alt="Elonet"></p>
+<h1 id="introduction-au-web">Introduction au web</h1>
 <p>L’une des forces de Python c’est qu’il existe des bibliothèques pour à peu près tout , nous avons vu comment interagir avec nos programmes depuis la console, voyons comment interagir depuis de web.</p>
 <p>Le plus simple pour créer une application web en Python est d’utiliser des bibliothèques déjà existantes.<br>
 Les plus connus sont Django et Flask.<br>
@@ -95,14 +106,26 @@ Django : <a href="https://www.djangoproject.com/">https://www.djangoproject.com/
 Flask : <a href="http://flask.pocoo.org/">http://flask.pocoo.org/</a></p>
 <p>La différence entre Djanog et Flask se situe dans les capacités présentes de base dans les bibliothèques, Django est très complet tandis que Flask fournit le minimum.</p>
 <p>Nous allons étudier Flask, l’avantage de Flask est que la courbe de progression est plus douce que celle de Django et qu’il possède une syntaxe très lisible.</p>
-<p>Exemple d’une application affichant Hello World :</p>
+<p>Exemple d’une application affichant Hello World à l’adresse <a href="http://localhost:5552">http://localhost:5552</a>:</p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask
 app <span class="token operator">=</span> Flask<span class="token punctuation">(</span>__name__<span class="token punctuation">)</span>
 @app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">)</span>
 <span class="token keyword">def</span> <span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token keyword">return</span> <span class="token string">"Hello World!"</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>  
+    <span class="token keyword">import</span> os  
+    HOST <span class="token operator">=</span> os<span class="token punctuation">.</span>environ<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'SERVER_HOST'</span><span class="token punctuation">,</span> <span class="token string">'localhost'</span><span class="token punctuation">)</span>  
+    <span class="token keyword">try</span><span class="token punctuation">:</span>  
+        PORT <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>environ<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'SERVER_PORT'</span><span class="token punctuation">,</span> <span class="token string">'5552'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  
+    <span class="token keyword">except</span> ValueError<span class="token punctuation">:</span>  
+        PORT <span class="token operator">=</span> <span class="token number">5552</span>  
+  
+  app<span class="token punctuation">.</span>run<span class="token punctuation">(</span>HOST<span class="token punctuation">,</span> PORT<span class="token punctuation">,</span> debug<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span> <span class="token comment"># On Windows  </span>
+  <span class="token comment">#app.run(HOST, PORT, debug=True, processes=3) # On Linux </span>
+  <span class="token comment">#app.run('0.0.0.0', 8000, processes=3) # On docker</span>
 </code></pre>
-<h1 id="flask">Flask</h1>
+<h1 id="flask">1- Flask</h1>
 <p>Flask est une bibliothèque de type micro framework, c’est-à-dire qu’elle contient le strict minimum pour réaliser une application web, si nous souhaitons plus de fonctionnalités, il est possible d’installer des extensions.</p>
 <p>Cette approche permet de créer des applications web légères et souples.</p>
 <h2 id="installation">Installation</h2>
@@ -147,16 +170,16 @@ runserver.py
 <p>Le dossier app contient l’ensemble de notre application, il est composé de 2 fichiers :</p>
 <ul>
 <li><code>__init__.py</code> contient notre application</li>
-<li><code>routes.py</code> contient les fonctions correspondants aux routes<br>
-<code>__init__.py</code></li>
+<li><code>routes.py</code> contient les fonctions correspondants aux routes</li>
 </ul>
+<p>Fichier <code>app/__init__.py</code></p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask  
   
 app <span class="token operator">=</span> Flask<span class="token punctuation">(</span>__name__<span class="token punctuation">)</span>  
   
 <span class="token keyword">from</span> <span class="token punctuation">.</span> <span class="token keyword">import</span> routes
 </code></pre>
-<p><code>routes.py</code></p>
+<p>fichier <code>app/routes.py</code></p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> app <span class="token keyword">import</span> app  
   
   
@@ -181,11 +204,11 @@ app <span class="token operator">=</span> Flask<span class="token punctuation">(
   <span class="token comment">#app.run('0.0.0.0', 8000, processes=3) # On docker</span>
 </code></pre>
 <p>En  lançant le fichier <code>runserver.py</code> nous pouvons accéder à notre service à l’adresse <code>http://localhost:5552</code></p>
-<h1 id="templating">Templating</h1>
+<h1 id="templating">2 - Templating</h1>
 <p>Flask possède un puissant moteur de template nommé Jinja2, celui-ci nous permet de générer des pages HTML paramétrables.</p>
 <p>Créons un dossier <code>templates</code> dans le dossier <code>app</code>, Flask ira directement chercher les templates dans ce dossier.</p>
-<p>Prenons une page simple page HTML affichant un message:<br>
-<code>hello.html</code></p>
+<p>Prenons une page simple page HTML affichant un message:</p>
+<p>Fichier <code>app/templates/hello.html</code></p>
 <pre class=" language-html"><code class="prism  language-html"><span class="token doctype">&lt;!doctype html&gt;</span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fr<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
@@ -211,10 +234,11 @@ app <span class="token operator">=</span> Flask<span class="token punctuation">(
 <p>Cela nous permet par exemple d’éviter de recopier le corps de la page à chaque nouvelle page HTML créée.</p>
 <p>Pour réaliser cela, créons un fichier <code>base.html</code> qui contiendra un élément <code>content</code> destiné à afficher le reste de notre page web.</p>
 <p>Pour définir un bloc la syntaxe est <code>{% block &lt;block_name&gt; %}{% endblock %}</code>.</p>
+<p>Fichier <code>app/templates/base.html</code></p>
 <pre class=" language-html"><code class="prism  language-html"><span class="token doctype">&lt;!doctype html&gt;</span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fr<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>{{ Title }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>{{ title }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
     {% block content %}{% endblock %}
@@ -224,6 +248,7 @@ app <span class="token operator">=</span> Flask<span class="token punctuation">(
 <p>Créons maintenant un fichier <code>home.html</code> qui contiendra la page d’accueil.</p>
 <p>Pour cela nous allons redéfinir le bloc <code>content</code> de la page <code>base.html</code><br>
 Pour étendre une page, la syntaxe est <code>{% extends "&lt;name&gt;.html" %}</code>.</p>
+<p>Fichier <code>app/templates/home.html</code></p>
 <pre class=" language-html"><code class="prism  language-html">{% extends "base.html" %}
 {% block content %}
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span>Home page<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
@@ -244,6 +269,7 @@ Pour étendre une page, la syntaxe est <code>{% extends "&lt;name&gt;.html" %}</
 <h2 id="paramètres">Paramètres</h2>
 <p>Nous avons vu comment passer des types de variables simples à une page HTML, mais il est  possible des passer n’importe quel type de variable en paramètres.</p>
 <p>Exemple pour un objet et un dictionnaire dans un fichier <code>users.html</code> :</p>
+<p>Fichier <code>app/templates/users.html</code></p>
 <pre class=" language-html"><code class="prism  language-html">{% extends "base.html" %}
 {% block content %}
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
@@ -276,7 +302,8 @@ Pour étendre une page, la syntaxe est <code>{% extends "&lt;name&gt;.html" %}</
 <h2 id="boucles">Boucles</h2>
 <p>Le moteur Jinja2 nous permet de réaliser des boucles sur des objets itérables tels que les listes.</p>
 <p>La syntaxe pour réaliser une boucle est : <code>{% for &lt;var_name&gt; in &lt;parameter&gt; %} .... {% endfor %}</code>, le code HTML contenu à l’intérieur du bloc sera répété autant de fois qu’il y a d’élément dans la variable.</p>
-<p>Reprenons notre exemple <code>users.py</code> et insérons une boucle pour afficher une liste d’utilisateurs :</p>
+<p>Reprenons notre exemple <code>users.html</code> et insérons une boucle pour afficher une liste d’utilisateurs :</p>
+<p>Fichier <code>app/templates/users.html</code></p>
 <pre class=" language-html"><code class="prism  language-html">{% extends "base.html" %}
 {% block content %}
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
@@ -286,7 +313,7 @@ Pour étendre une page, la syntaxe est <code>{% extends "&lt;name&gt;.html" %}</
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
     
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">&gt;</span></span>
-    {% endfor %&gt;
+    {% endfor %}
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
 {% endblock %}
 </code></pre>
@@ -307,9 +334,10 @@ Pour étendre une page, la syntaxe est <code>{% extends "&lt;name&gt;.html" %}</
 <pre class=" language-html"><code class="prism  language-html">{% if <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>condition</span><span class="token punctuation">&gt;</span></span> %}
 {% elif <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>condition</span><span class="token punctuation">&gt;</span></span> %}
 {% else %}
-{% endif %]
+{% endif %}
 </code></pre>
-<p>Reprenons notre fichier <code>users.py</code> et ajoutons une erreur si le paramètre <code>users</code> n’est pas fourni :</p>
+<p>Reprenons notre fichier <code>users.html</code> et ajoutons une erreur si le paramètre <code>users</code> n’est pas fourni :</p>
+<p>Fichier <code>app/templates/users.html</code></p>
 <pre class=" language-html"><code class="prism  language-html">{% extends "base.html" %}
 {% block content %}
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
@@ -320,9 +348,9 @@ Pour étendre une page, la syntaxe est <code>{% extends "&lt;name&gt;.html" %}</
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
     
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">&gt;</span></span>
-        {% endfor %&gt;
+        {% endfor %}
     
-    {% else % }
+    {% else %}
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Alert ! Users is None<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
     
     {% endif %}
@@ -332,19 +360,21 @@ Pour étendre une page, la syntaxe est <code>{% extends "&lt;name&gt;.html" %}</
 <p>Essayez de ne plus fournis le paramètre <code>users</code> dans le fichier <code>routes.py</code>, la page web affichera une alerte <code>Alert ! Users is None</code>.</p>
 <p>Les conditions nous permettent par exemple d’afficher des éléments uniquement si l’utilisateur est connecté.</p>
 <h2 id="fichiers-statiques">Fichiers statiques</h2>
-<p>En général qui dit application web dit feuille de style et scripts, par défaut Flask va chercher les fichiers statiques dans le dossier <code>static</code> de votre application.</p>
+<p>En général qui dit application web dit feuille de style et scripts, par défaut Flask va chercher les fichiers statiques dans le dossier <code>static</code> de votre application, en interne Flask possède une fonction pour gérer les fichiers statiques.</p>
 <p>Créons un dossier <code>static</code> dans le dossier <code>app</code> et ajoutons un fichier <code>default.css</code></p>
+<p>Fichier <code>app/static/default.css</code></p>
 <pre class=" language-css"><code class="prism  language-css"><span class="token selector">h1 </span><span class="token punctuation">{</span>
     <span class="token property">color</span><span class="token punctuation">:</span> green<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>Modifions maintenant notre fichier <code>base.html</code> pour inclure cette nouvelle feuille de style.</p>
-<p>Pour avoir l’URL de notre fichier, nous allons utiliser <code>url_for</code> qui permet d’avoir la route d’une fonction.</p>
+<p>Pour avoir l’URL de notre fichier, nous allons utiliser <code>url_for</code> qui permet d’avoir la route d’une fonction, ici nous souhaitons accéder à la fonction de gestion des fichiers statiques.</p>
 <p>Profitons-en pour créer un bloc <code>style</code> qui contient nos feuilles de style, de cette manière nous pourrons étendre le bloc dans des pages enfantes en utilisant <code>{{ super() }}</code>.</p>
+<p>Fichier <code>app/templates/base.html</code></p>
 <pre class=" language-html"><code class="prism  language-html"><span class="token doctype">&lt;!doctype html&gt;</span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fr<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>{{ Title }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>{{ title }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
     {% block style %}
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/css<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{ url_for(<span class="token punctuation">'</span>static<span class="token punctuation">'</span>, filename=<span class="token punctuation">'</span>default.css<span class="token punctuation">'</span>) }}<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
     {% endblock %}
@@ -354,21 +384,23 @@ Pour étendre une page, la syntaxe est <code>{% extends "&lt;name&gt;.html" %}</
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
 </code></pre>
-<p>Nous pouvons même créer un système de thème à l’aide des conditions, créons un fichier <code>blue.css</code></p>
+<p>Nous pouvons même créer un système de thème à l’aide des conditions, créons un fichier <code>blue.css</code> et <code>red.css</code></p>
+<p>Fichier <code>app/static/blue.css</code></p>
 <pre class=" language-css"><code class="prism  language-css"><span class="token selector">h1 </span><span class="token punctuation">{</span>
     <span class="token property">color</span><span class="token punctuation">:</span> blue<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>et <code>red.css</code></p>
+<p>Fichier <code>app/static/red.css</code></p>
 <pre class=" language-css"><code class="prism  language-css"><span class="token selector">h1 </span><span class="token punctuation">{</span>
     <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>Modifions de nouveau notre fichier <code>base.html</code></p>
+<p>Fichier <code>app/templates/base.html</code></p>
 <pre class=" language-html"><code class="prism  language-html"><span class="token doctype">&lt;!doctype html&gt;</span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fr<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>{{ Title }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>{{ title }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
     {% block style %}
     {% if theme == 'blue' %}
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/css<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{ url_for(<span class="token punctuation">'</span>static<span class="token punctuation">'</span>, filename=<span class="token punctuation">'</span>blue.css<span class="token punctuation">'</span>) }}<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
@@ -393,12 +425,36 @@ Pour étendre une page, la syntaxe est <code>{% extends "&lt;name&gt;.html" %}</
         theme<span class="token operator">=</span><span class="token string">'red'</span>
     <span class="token punctuation">)</span>
 </code></pre>
-<h2 id="messages-flash">Messages flash</h2>
+<h1 id="configuration">3 - Configuration</h1>
+<p>Chaque application Flask possède une configuration qu’il est possible de lire ou de modifier, certainnes fonctions ou extensions nécessites d’ajouter une valeur à la configuration.</p>
+<h2 id="usage">Usage</h2>
+<p>Pour modifier la configuration de notre application, il faut modifier le dictionnaire <code>config</code> de notre objet <code>app</code></p>
+<p>Fichier <code>app/__init__.py</code></p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask  
+  
+app <span class="token operator">=</span> Flask<span class="token punctuation">(</span>__name__<span class="token punctuation">)</span>
+app<span class="token punctuation">.</span>config<span class="token punctuation">[</span><span class="token string">'MY_KEY'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'ma_valeur'</span> 
+  
+<span class="token keyword">from</span> <span class="token punctuation">.</span> <span class="token keyword">import</span> routes
+</code></pre>
+<h1 id="messages-flash">4 - Messages flash</h1>
 <p>Les messages flash sont un moyen de stocker des messages qui seront accessibles une seule fois, ils sont pratiques, car ils peuvent être utilisés d’une page à l’autre.</p>
+<p>L’utilisation des messages flash nécessite que la valeur <code>SECRET_KEY</code> soit définie dans notre application</p>
+<p>Fichier <code>app/__init__.py</code></p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask  
+  
+app <span class="token operator">=</span> Flask<span class="token punctuation">(</span>__name__<span class="token punctuation">)</span>
+app<span class="token punctuation">.</span>config<span class="token punctuation">[</span><span class="token string">'SECRET_KEY'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'my_secret_key'</span>
+  
+<span class="token keyword">from</span> <span class="token punctuation">.</span> <span class="token keyword">import</span> routes
+</code></pre>
 <p>Pour ajouter un message flash, il suffit d’utiliser la fonction <code>flash</code> qui prend en paramètre le message à stocker.</p>
 <p>Nous pouvons ensuite récupérer les messages flash à l’aide de la fonction <code>get_flashed_messages()</code></p>
 <p>Exemple :</p>
-<pre class=" language-python"><code class="prism  language-python">@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> flask <span class="token keyword">import</span> render_template<span class="token punctuation">,</span> flash<span class="token punctuation">,</span> redirect
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span>
 <span class="token keyword">def</span> <span class="token function">index</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
     flash<span class="token punctuation">(</span><span class="token string">'Redirection depuis index'</span><span class="token punctuation">)</span>
     <span class="token keyword">return</span> redirect<span class="token punctuation">(</span><span class="token string">'/home'</span><span class="token punctuation">)</span>
@@ -407,6 +463,7 @@ Pour étendre une page, la syntaxe est <code>{% extends "&lt;name&gt;.html" %}</
 <span class="token keyword">def</span> <span class="token function">home</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token keyword">return</span> render_template<span class="token punctuation">(</span><span class="token string">'home.html'</span><span class="token punctuation">,</span> title<span class="token operator">=</span><span class="token string">'Home'</span><span class="token punctuation">)</span>
 </code></pre>
+<p>Fichier <code>app/templates/home.html</code></p>
 <pre class=" language-html"><code class="prism  language-html">{% extends "base.html" %}
 {% block content %}
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
@@ -423,21 +480,14 @@ Pour étendre une page, la syntaxe est <code>{% extends "&lt;name&gt;.html" %}</
 {% endblock %}
 </code></pre>
 <p>Le mot clé <code>with</code> permet de créer un bloc et de limiter la portée des variables, ainsi <code>messages</code> et uniquement disponible dans le bloc <code>{% with ... %}{% endwith %}</code></p>
-<h1 id="formulaires">Formulaires</h1>
+<h1 id="formulaires">5 - Formulaires</h1>
 <p>Pour gérer les formulaires de manière simple, nous allons ajouter l’extension <code>flask-wtf</code>.</p>
 <p>Cette extension nous permet de traiter les formulaires sous forme d’objet et d’ajouter des règles de validation de données pour les champs du formulaire.</p>
 <h2 id="installation-">Installation :</h2>
 <pre><code>pip install flask-wtf
 </code></pre>
-<p>Pour fonctionner, <code>flask-wtf</code> nécessite de configurer une clé secrète <code>SECRET_KEY</code> dans notre application.</p>
-<p>Cette clé est utilisée par <code>flask-wtf</code> pour vérifier que le résultat du formulaire provient bien de l’application.</p>
-<p>L’objet Flask contient un dictionnaire de la configuration de l’application, pour le modifier ou le lire il suffit de fournir la clé, ici <code>SECRET_KEY</code>.</p>
-<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask  
-  
-app <span class="token operator">=</span> Flask<span class="token punctuation">(</span>__name__<span class="token punctuation">)</span>  
-app<span class="token punctuation">.</span>config<span class="token punctuation">[</span><span class="token string">'SECRET_KEY'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'my_secret_key'</span>
-</code></pre>
-<h2 id="usage">Usage</h2>
+<p>Pour fonctionner, <code>flask-wtf</code> nécessite que la valeur <code>SECRET_KEY</code> soit définie dans notre application</p>
+<h2 id="usage-1">Usage</h2>
 <p><code>flask-wtf</code> nous permet de considérer les formulaires comme des objets, pour cela il suffit d’étendre l’objet <code>FlaskForm</code> présent dans <code>flask-wtf</code>.</p>
 <p>Chaque attribut de l’objet représente un champ du formulaire, et chaque attribut possède un type de champ.</p>
 <p>Le choix des champs est important, car <code>flask-wtf</code> va générer le code HTML du champ.</p>
@@ -449,6 +499,7 @@ Le formulaire contient :</p>
 <li>Un champ obligatoire pour le mot de passe</li>
 <li>Un bouton permettant de valider le formulaire</li>
 </ul>
+<p>Fichier <code>app/forms.py</code></p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> flask_wtf <span class="token keyword">import</span> FlaskForm
 <span class="token keyword">from</span> wtforms <span class="token keyword">import</span> StringField<span class="token punctuation">,</span> PasswordField<span class="token punctuation">,</span> SubmitField
 <span class="token keyword">from</span> wtforms<span class="token punctuation">.</span>validators <span class="token keyword">import</span> DataRequired
@@ -460,6 +511,7 @@ Le formulaire contient :</p>
 </code></pre>
 <p>Créons une page <code>login.html</code> qui hérite de la page <code>base.html</code> et qui contient notre page d’authentification.</p>
 <p>Cette page prend en paramètre un formulaire à afficher.</p>
+<p>Fichier <code>app/templates/login.html</code></p>
 <pre class=" language-html"><code class="prism  language-html">{% extends "base.html" %}
 {% block content %}
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span>Authentification<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
@@ -482,7 +534,10 @@ Le formulaire contient :</p>
 {% endblock %}
 </code></pre>
 <p>Appelons maintenant notre fichier <code>login.html</code> dans le fichier <code>routes.py</code></p>
-<pre class=" language-python"><code class="prism  language-python">@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">'/login'</span><span class="token punctuation">)</span>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> <span class="token punctuation">.</span>forms <span class="token keyword">import</span> LoginForm<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">'/login'</span><span class="token punctuation">)</span>
 <span class="token keyword">def</span> <span class="token function">login</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
     form <span class="token operator">=</span> LoginForm<span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token keyword">return</span> render_template<span class="token punctuation">(</span>
@@ -496,6 +551,8 @@ Le formulaire contient :</p>
 <p>La récupération de valeurs d’un formulaire est une tache très simple à l’aide de <code>flask-wtf</code>, il suffit d’utiliser la méthode <code>validate_on_submit()</code> de l’objet formulaire.</p>
 <p>Si le formulaire contient des règles de validation et que celles-ci ne sont pas satisfaites, <code>flask-wtf</code> ne considérera pas le formulaire comme valide.</p>
 <p>Pour récupérer les valeurs d’un formulaire, il faut ajouter la méthode POST à notre route.</p>
+<p>Le décorateur <code>@app.route</code> peux définir une route (unique exemple vue jusque ici) mais aussi les méthodes HTTP que nous acceptons de traiter ou non, par défaut une route accepte uniquement la méthode HTTP <code>GET</code></p>
+<p>Pour accepter plus de méthodes, il faut ajouter <code>methods=[]</code> au décorateur.</p>
 <p>Si le formulaire est valide, nous redirigeons l’utilisateur sur la page d’accueil de notre service, sinon nous affichons de nouveau le formulaire.</p>
 <pre class=" language-python"><code class="prism  language-python">@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">'/login'</span><span class="token punctuation">,</span> methods<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'GET'</span><span class="token punctuation">,</span> <span class="token string">'POST'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 <span class="token keyword">def</span> <span class="token function">login</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -506,21 +563,22 @@ Le formulaire contient :</p>
     <span class="token keyword">return</span> render_template<span class="token punctuation">(</span><span class="token string">'login.html'</span><span class="token punctuation">,</span> title<span class="token operator">=</span><span class="token string">'Sign In'</span><span class="token punctuation">,</span> form<span class="token operator">=</span>form<span class="token punctuation">)</span>
 </code></pre>
 <p>A l’aide de <code>DataRequired</code> nous sommes sûrs de récupérer un nom d’utilisateur et un mot de passe, charge à nous de vérifier si l’utilisateur existe.</p>
-<h1 id="orm">ORM</h1>
+<h1 id="orm">6 - ORM</h1>
 <p>Les ORM sont des bibliothèques de mapping objet-relationnel qui nous permettent de “stocker” des objets Python dans nos bases de données.</p>
 <p>En respectant une syntaxe propre à chaque ORM, nous n’avons plus besoin d’écrire du langage de base de données pour accéder à nos données.</p>
-<h1 id="sqlalchemy">SQLAlchemy</h1>
+<h2 id="sqlalchemy">SQLAlchemy</h2>
 <p>SQLAlchemy est la bibliothèque ORM de référence en Python pour interagir avec une base SQL, elle gère toutes les bases de données de type SQL (ou presque toutes)</p>
-<p>La version Flask de la bibliothèque s’appelle <code>flask-sqlachemy</code></p>
-<h3 id="installation-1">Installation</h3>
+<p>La version Flask de la bibliothèque s’appelle <code>flask-sqlalchemy</code></p>
+<h2 id="installation-1">Installation</h2>
 <pre><code>pip install flask-slqalchemy
 </code></pre>
 <p><code>flask-sqlalchemy</code> nécessite 2 configurations supplémentaires :</p>
 <ul>
 <li><code>SQLALCHEMY_DATABASE_URI</code> qui est l’URI de la base de données</li>
-<li><code>SQLALCHEMY_TRACK_MODIFICATIONS</code> qui permet de rendre <code>flask-sqlachemy</code> moins verbeux et plus rapide</li>
+<li><code>SQLALCHEMY_TRACK_MODIFICATIONS</code> qui permet de rendre <code>flask-sqlalchemy</code> moins verbeux et plus rapide</li>
 </ul>
 <p>Exemple pour une base de données SQLite <code>app.db</code> contenue dans notre dossier <code>app</code></p>
+<p>Fichier <code>app/__init__.py</code></p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">import</span> os
 <span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask
 basedir <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>abspath<span class="token punctuation">(</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>dirname<span class="token punctuation">(</span>__file__<span class="token punctuation">)</span><span class="token punctuation">)</span>
@@ -529,8 +587,11 @@ app <span class="token operator">=</span> Flask<span class="token punctuation">(
 app<span class="token punctuation">.</span>config<span class="token punctuation">[</span><span class="token string">'SECRET_KEY'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'my_secret_key'</span>
 app<span class="token punctuation">.</span>config<span class="token punctuation">[</span><span class="token string">'SQLALCHEMY_DATABASE_URI'</span><span class="token punctuation">]</span> <span class="token operator">=</span> db_uri
 app<span class="token punctuation">.</span>config<span class="token punctuation">[</span><span class="token string">'SQLALCHEMY_TRACK_MODIFICATIONS'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">False</span>
+
+<span class="token keyword">from</span> <span class="token punctuation">.</span> <span class="token keyword">import</span> routes
 </code></pre>
 <p>Il faut ensuite créer un objet <code>SQLAlchemy</code> qui prend en paramètre notre application Flask</p>
+<p>Fichier <code>app/__init__.py</code></p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">import</span> os
 <span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask
 <span class="token keyword">from</span> flask_sqlalchemy <span class="token keyword">import</span> SQLAlchemy
@@ -542,13 +603,15 @@ app<span class="token punctuation">.</span>config<span class="token punctuation"
 app<span class="token punctuation">.</span>config<span class="token punctuation">[</span><span class="token string">'SQLALCHEMY_DATABASE_URI'</span><span class="token punctuation">]</span> <span class="token operator">=</span> db_uri
 app<span class="token punctuation">.</span>config<span class="token punctuation">[</span><span class="token string">'SQLALCHEMY_TRACK_MODIFICATIONS'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">False</span>
 db <span class="token operator">=</span> SQLAlchemy<span class="token punctuation">(</span>app<span class="token punctuation">)</span>
+
 <span class="token keyword">from</span> <span class="token punctuation">.</span> <span class="token keyword">import</span> routes
 </code></pre>
-<h3 id="déclaration">Déclaration</h3>
-<p><code>flask-sqlalchemy</code> nous permet de “stocker” nos objets en base de données, pour cela il suffit d’étendre l’objet <code>Model</code> présent dans <code>SQLAlchemy</code>.</p>
+<h2 id="déclaration">Déclaration</h2>
+<p><code>flask-sqlalchemy</code> nous permet de “stocker” nos objets en base de données, pour cela il suffit d’étendre la classe <code>Model</code> présent dans <code>SQLAlchemy</code>.</p>
 <p>Chaque objet représente une table de la base et chaque attribut représente une colonne.</p>
 <p>Chaque colonne contient un type de données défini, il est possible d’ajouter des contrôles tels que <code>primary_key</code>, <code>nullable</code>, <code>index</code>, <code>unique</code>, <code>default</code>, etc …</p>
 <p>Créons un fichier <code>models.py</code> qui contient un objet représentant un utilisateur du système.</p>
+<p>Fichier <code>app/models.py</code></p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> app <span class="token keyword">import</span> db
 
 <span class="token keyword">class</span> <span class="token class-name">User</span><span class="token punctuation">(</span>db<span class="token punctuation">.</span>Model<span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -561,7 +624,9 @@ db <span class="token operator">=</span> SQLAlchemy<span class="token punctuatio
 </code></pre>
 <p>Pour créer notre base à partir de notre code, il existe plusieurs solutions telles que <code>flask-migrate</code> qui génère des scripts de migration à partir de nos objets, ici nous allons utiliser une méthode plus simple et laisser <code>SQLAlchemy</code> créer notre base.</p>
 <p>Pour cela il faut importer l’ensemble des objets du modèle et utiliser la méthode <code>create_all</code></p>
-<pre class=" language-python"><code class="prism  language-python">db <span class="token operator">=</span> SQLAlchemy<span class="token punctuation">(</span>app<span class="token punctuation">)</span>  
+<p>Ficier <code>app/__init__.py</code></p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+db <span class="token operator">=</span> SQLAlchemy<span class="token punctuation">(</span>app<span class="token punctuation">)</span>  
   
 <span class="token keyword">from</span> <span class="token punctuation">.</span> <span class="token keyword">import</span> routes  
   
@@ -571,7 +636,7 @@ db<span class="token punctuation">.</span>create_all<span class="token punctuati
 </code></pre>
 <p>Ainsi notre base de données sera créée au démarrage de l’application si elle n’existe pas.</p>
 <p>L’inconvénient de cette méthode est que si un objet de l’ORM est modifié, il faut supprimer la base de données.</p>
-<h3 id="nom-de-table">Nom de table</h3>
+<h2 id="nom-de-table">Nom de table</h2>
 <p>SQLAlchemy utilise le nom de notre objet pour créer un nom de table, ainsi la classe <code>User</code> donne le nom de table <code>user</code>.</p>
 <p>Cela est très pratique la plupart du temps, mais peut poser certains problèmes dans le cas de nom d’objet contenant plusieurs majuscules, par exemple <code>MasterChiefWeapon</code> donne le nom de table <code>master_chief_weapon</code>.</p>
 <p>En soi, ce n’est pas un problème de mettre un underscore à chaque majuscule, mais il faut s’en souvenir lors d’ajout de clés étrangères.</p>
@@ -582,7 +647,7 @@ db<span class="token punctuation">.</span>create_all<span class="token punctuati
     username <span class="token operator">=</span> db<span class="token punctuation">.</span>Column<span class="token punctuation">(</span>db<span class="token punctuation">.</span>String<span class="token punctuation">(</span><span class="token number">64</span><span class="token punctuation">)</span><span class="token punctuation">,</span> index<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> unique<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
     password_hash <span class="token operator">=</span> db<span class="token punctuation">.</span>Column<span class="token punctuation">(</span>db<span class="token punctuation">.</span>String<span class="token punctuation">(</span><span class="token number">128</span><span class="token punctuation">)</span><span class="token punctuation">,</span> nullable<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
 </code></pre>
-<h3 id="usage-1">Usage</h3>
+<h2 id="usage-2">Usage</h2>
 <p>Testons notre classe <code>User</code>, pour cela plaçons notre terminal dans le dossier de notre application et lançon Python 3</p>
 <p>De la importons notre classe <code>User</code> et l’objet <code>db</code> depuis le module <code>models</code> (voir la formation 1 pour la notion de module / package).</p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token punctuation">(</span>venv<span class="token punctuation">)</span> <span class="token operator">&gt;</span>python
@@ -591,7 +656,7 @@ Type <span class="token string">"help"</span><span class="token punctuation">,</
 <span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> <span class="token keyword">from</span> app<span class="token punctuation">.</span>models <span class="token keyword">import</span> User<span class="token punctuation">,</span> db
 <span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span>
 </code></pre>
-<h4 id="insertion">Insertion</h4>
+<h3 id="insertion">Insertion</h3>
 <p>Pour insérer un utilisateur, il suffit de créer un nouvel objet et de le fournir à l’objet <code>db</code>.</p>
 <p>L’objet <code>db</code> contient un objet <code>session</code>, comme en SQL, nos modifications sont enregistrées en base seulement si nous réalisons un <code>commit</code>.</p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> <span class="token keyword">from</span> app<span class="token punctuation">.</span>models <span class="token keyword">import</span> User<span class="token punctuation">,</span> db
@@ -616,7 +681,7 @@ sqlite3<span class="token punctuation">.</span>IntegrityError<span class="token 
 <span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span>
 <span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> db<span class="token punctuation">.</span>session<span class="token punctuation">.</span>rollback<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
-<h4 id="récupérer-un-objet-à-partir-de-son-identifiant">Récupérer un objet à partir de son identifiant</h4>
+<h3 id="récupérer-un-objet-à-partir-de-son-identifiant">Récupérer un objet à partir de son identifiant</h3>
 <p>Pour récupérer un objet à partir de son identifiant on utilise l’attribut <code>query</code> de l’objet <code>Model</code> (la classe mère de nos objets).</p>
 <p>Cet attribut possède une méthode <code>get</code> qui attend la valeur de la clé primaire permettant d’identifier l’objet, en retour elle retourne l’objet si il existe, sinon <code>None</code></p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> u <span class="token operator">=</span> User<span class="token punctuation">.</span>query<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
@@ -628,7 +693,7 @@ sqlite3<span class="token punctuation">.</span>IntegrityError<span class="token 
 <span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> u <span class="token keyword">is</span> <span class="token boolean">None</span>
 <span class="token boolean">True</span>
 </code></pre>
-<h4 id="récupérer-des-objets">Récupérer des objets</h4>
+<h3 id="récupérer-des-objets">Récupérer des objets</h3>
 <p>La recherche d’un objet utilise aussi l’attribut <code>query</code>.</p>
 <p>Nous pouvons récupérer l’ensemble des objets à l’aide de <code>all</code> et le premier objet à l’aide de <code>first</code></p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> l_u <span class="token operator">=</span> User<span class="token punctuation">.</span>query<span class="token punctuation">.</span><span class="token builtin">all</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -639,7 +704,7 @@ sqlite3<span class="token punctuation">.</span>IntegrityError<span class="token 
 <span class="token operator">&lt;</span>User <span class="token number">1</span><span class="token operator">&gt;</span>
 <span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span>
 </code></pre>
-<h4 id="recherche-dun-objet">Recherche d’un objet</h4>
+<h3 id="recherche-dun-objet">Recherche d’un objet</h3>
 <p>La recherche d’un objet utilise aussi l’attribut <code>query</code>, cette fois nous utilisons la méthode <code>filter_by</code> qui attend le nom de l’attribut et la valeur recherchée.</p>
 <p>Cette méthode retourne un objet de type <code>query</code>, nous pouvons donc récupérer l’ensemble des éléments avec <code>all</code> et le premier avec <code>first</code>.</p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> l_u <span class="token operator">=</span> User<span class="token punctuation">.</span>query<span class="token punctuation">.</span>filter_by<span class="token punctuation">(</span>username<span class="token operator">=</span><span class="token string">'Will'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">all</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -655,7 +720,7 @@ sqlite3<span class="token punctuation">.</span>IntegrityError<span class="token 
 <span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> u <span class="token keyword">is</span> <span class="token boolean">None</span>
 <span class="token boolean">True</span>
 </code></pre>
-<h4 id="modification-dun-objet">Modification d’un objet</h4>
+<h3 id="modification-dun-objet">Modification d’un objet</h3>
 <p>Pour modifier un objet, il suffit de modifier ses attributs et de l’ajouter de nouveau à notre base de données, SQLAlchemy fait la mise à jour de manière transparente.</p>
 <p>Il ne faut pas oublier d’utiliser la méthode <code>commit</code> pour enregistrer les modifications dans la base de données.</p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> u <span class="token operator">=</span> User<span class="token punctuation">.</span>query<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
@@ -669,7 +734,7 @@ sqlite3<span class="token punctuation">.</span>IntegrityError<span class="token 
 <span class="token string">'super secret'</span>
 <span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span>
 </code></pre>
-<h4 id="supprimer-un-objet">Supprimer un objet</h4>
+<h3 id="supprimer-un-objet">Supprimer un objet</h3>
 <p>Pour supprimer un objet, il suffit de le fournir à notre objet <code>db</code> à l’aide de la méthode <code>delete</code>.</p>
 <p>Il ne faut pas oublier d’utiliser la méthode <code>commit</code> pour enregistrer les modifications dans la base de données.</p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> l_u <span class="token operator">=</span> User<span class="token punctuation">.</span>query<span class="token punctuation">.</span><span class="token builtin">all</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -686,9 +751,9 @@ sqlite3<span class="token punctuation">.</span>IntegrityError<span class="token 
 <span class="token punctuation">[</span><span class="token operator">&lt;</span>User <span class="token number">2</span><span class="token operator">&gt;</span><span class="token punctuation">]</span>
 <span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span>
 </code></pre>
-<h3 id="relations">Relations</h3>
+<h2 id="relations">Relations</h2>
 <p>Qui dit base de données relationnelle dit relation, SQLAlchemy nous permet de les définir très facilement. voyons la plus courante, one to many</p>
-<h4 id="one-to-many">One to many</h4>
+<h3 id="one-to-many">One to many</h3>
 <p>Prenons l’exemple d’un forum, ce forum est composé de topics et chaque topic contient des messages d’utilisateurs.</p>
 <p>Concentrons-nous sur la relation topic to messages.</p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> datetime <span class="token keyword">import</span> datetime
@@ -747,12 +812,13 @@ Exemple :</p>
 <span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> m<span class="token punctuation">.</span>topic<span class="token punctuation">.</span>name
 <span class="token string">'Test'</span>
 </code></pre>
-<h1 id="authentification">Authentification</h1>
+<h1 id="authentification">7 - Authentification</h1>
 <p>L’extension <code>flask-login</code> nous permet de mettre en place très simplement un système d’authentification utilisateur.</p>
 <h2 id="installation-2">Installation</h2>
 <pre><code>pip install flask-login
 </code></pre>
 <p>Il faut ensuite créer un objet <code>LoginManager</code> et lui fournir notre application</p>
+<p>Fcihier <code>app/__init__.py</code></p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">import</span> os
 <span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask
 <span class="token keyword">from</span> flask_sqlalchemy <span class="token keyword">import</span> SQLAlchemy
@@ -766,6 +832,7 @@ login <span class="token operator">=</span> LoginManager<span class="token punct
 <p>Modifions notre classe utilisateur en héritant de la classe <code>UserMixin</code> et en rendant notre mot de passe sécurisé.</p>
 <p>Pour la sécurisation du mot de passe, nous allons utiliser la fonction <code>generate_password_hash</code> présente dans <code>werkzeug.security</code>.<br>
 <code>werkzeug</code> est un package installé en même temps que Flask.</p>
+<p>Fichier <code>app/models.py</code></p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> werkzeug<span class="token punctuation">.</span>security <span class="token keyword">import</span> generate_password_hash<span class="token punctuation">,</span> check_password_hash
 <span class="token keyword">from</span> flask_login <span class="token keyword">import</span> UserMixin
 <span class="token keyword">from</span> app <span class="token keyword">import</span> db
@@ -798,6 +865,7 @@ login <span class="token operator">=</span> LoginManager<span class="token punct
 <h2 id="loader">Loader</h2>
 <p>Il faut ensuite indiquer à <code>flask-login</code> comment charger notre utilisateur, en effet selon la technologie de base de données utilisée (SQL ou NOSQL), la récupération d’un utilisateur diffère.</p>
 <p>Pour cela on utilise le décorateur <code>@login.user_loader</code> et on fournit une fonction chargée de récupérer un utilisateur à partir de son identifiant.</p>
+<p>Fichier <code>app/models.py</code></p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> werkzeug<span class="token punctuation">.</span>security <span class="token keyword">import</span> generate_password_hash<span class="token punctuation">,</span> check_password_hash
 <span class="token keyword">from</span> flask_login <span class="token keyword">import</span> UserMixin
 <span class="token keyword">from</span> app <span class="token keyword">import</span> db<span class="token punctuation">,</span> login
@@ -911,6 +979,7 @@ Actuellement l’utilisateur est redirigé vers l’index après une connexion.<
 </code></pre>
 <p>Il faut ensuite indiquer à <code>flask-login</code> la route à utiliser pour effectuer un processus de connexion, pour cela on fournit le nom de la <strong>fonction</strong> qui correspond à la route.</p>
 <p>Ici notre fonction s’appelle <code>login</code></p>
+<p>Fichier <code>app/__init__.py</code></p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">import</span> os  
 <span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask  
 <span class="token keyword">from</span> flask_sqlalchemy <span class="token keyword">import</span> SQLAlchemy  
@@ -962,15 +1031,15 @@ login<span class="token punctuation">.</span>login_view <span class="token opera
     logout_user<span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token keyword">return</span> redirect<span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span>
 </code></pre>
-<h1 id="bootstrap">BootStrap</h1>
+<h1 id="bootstrap">8 - BootStrap</h1>
 <p>BootStrap est parfait quand il s’agit des créer des applications web un peu jolies en un minimum de temps.</p>
 <p>Comme nous l’avons vu, <code>flask-wtf</code> produit lui-même le code HTML des champs de nos formulaires, ce qui peut poser problème avec des frameworks web type BootStrap qui possèdent leurs propres structures de code.</p>
 <p>Face à ça 2 solutions :</p>
 <ul>
 <li>Créer les composants pour Jinja 2 à l’aide des macros (non abordé dans les formations)</li>
-<li>Utiliser une bibliothèque le faisant déjà pour nous.<br>
-Nous allons voir la seconde approche qui permet de rapidement prototyper des applications.</li>
+<li>Utiliser une bibliothèque le faisant déjà pour nous.</li>
 </ul>
+<p>Nous allons voir la seconde approche qui permet de rapidement prototyper des applications.</p>
 <p>Nous allons utiliser <code>flask-bootstrap</code> qui contient la version 3 de BootStrap</p>
 <h2 id="installation-3">Installation</h2>
 <pre><code>pip install flask-bootstrap
@@ -986,7 +1055,7 @@ db <span class="token operator">=</span> SQLAlchemy<span class="token punctuatio
 login <span class="token operator">=</span> LoginManager<span class="token punctuation">(</span>app<span class="token punctuation">)</span>  
 Bootstrap<span class="token punctuation">(</span>app<span class="token punctuation">)</span>
 </code></pre>
-<h2 id="usage-2">Usage</h2>
+<h2 id="usage-3">Usage</h2>
 <p>L’utilisation du plugin repose sur le moteur Jinja 2, désormais nos pages HTML doivent hérité de <code>bootstrap/base.html</code> à l’aide de <code>{% extends "bootstrap/base.html" %}</code>.</p>
 <p>Nous avons ensuite à insérer notre code dans les différents blocs de la page.</p>
 <p>Parmi les blocs à notre disposition, nous avons :</p>
@@ -1110,11 +1179,11 @@ Le code HTML de la navbar provient de la documentation de Bootstrap</p>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
 {% endblock %}
 </code></pre>
-<h1 id="structure-de-code-1">Structure de code</h1>
-<p>Avant d’aller plus loin, nous allons aborder quelques bonnes pratiques pour rendre notre code modulaire</p>
+<h1 id="structure-de-code-1">9 - Structure de code</h1>
+<p>Avant d’aller plus loin, nous allons aborder quelques bonnes pratiques pour rendre notre code modulable</p>
 <h2 id="fichier-de-configuration">Fichier de configuration</h2>
 <p>Jusqu’à présent nous avons défini nos paramètres en dur dans notre package <code>app</code>, mais nous pouvons stocker la configuration dans un fichier Python et le fournir à Flask pour le réaliser la configuration.</p>
-<p>Créons un fichier <code>config.py</code>:</p>
+<p>Créons un fichier <code>config.py</code> à la racine de notre projet :</p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">import</span> os
 
 basedir <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>abspath<span class="token punctuation">(</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>dirname<span class="token punctuation">(</span>__file__<span class="token punctuation">)</span><span class="token punctuation">)</span>
@@ -1183,6 +1252,7 @@ app<span class="token punctuation">.</span>config<span class="token punctuation"
 <p>L’objet <code>db</code> est encapsulé dans la fonction <code>create_app</code> hors nous en avons besoin dans notre fichier <code>models.py</code>.</p>
 <p>Pour répondre à ce problème, les extensions Flask possèdent une méthode <code>init_app</code> qui prend en paramètre une application Flask afin d’ajouter l’extension à l’application.</p>
 <p>Créons un fichier <code>extensions.py</code> dans notre dossier <code>app</code> qui contient l’ensemble de nos extensions.</p>
+<p>Fichier <code>app/extentions.py</code></p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> flask_sqlalchemy <span class="token keyword">import</span> SQLAlchemy
 <span class="token keyword">from</span> flask_login <span class="token keyword">import</span> LoginManager
 <span class="token keyword">from</span> flask_bootstrap <span class="token keyword">import</span> Bootstrap
@@ -1192,6 +1262,7 @@ login <span class="token operator">=</span> LoginManager<span class="token punct
 bootstrap <span class="token operator">=</span> Bootstrap<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
 <p>Modifions maintenant notre fichier <code>__init__.py</code> pour initialiser les extensions :</p>
+<p>Fichier <code>app/__init__.py</code></p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask
 <span class="token keyword">from</span> config <span class="token keyword">import</span> config
 <span class="token keyword">from</span> <span class="token punctuation">.</span>extensions <span class="token keyword">import</span> db<span class="token punctuation">,</span> login<span class="token punctuation">,</span> bootstrap
@@ -1228,6 +1299,7 @@ On peut comparer les blueprint a des packages.</p>
 </ul>
 <p>Cette approche est très pratique, car nous encapsulons des morceaux entiers d’application dans des objets.</p>
 <p>Créons un dossier <code>public</code> dans notre dossier <code>app</code>, et ajoutons un fichier <code>__init__.py</code></p>
+<p>Fichier <code>app/public/__init__.py</code></p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> flask <span class="token keyword">import</span> Blueprint  
   
   
@@ -1363,10 +1435,10 @@ app
     extensions<span class="token punctuation">(</span>app<span class="token punctuation">)</span>
     <span class="token keyword">return</span> app
 </code></pre>
-<h1 id="service-rest">Service REST</h1>
+<h1 id="service-rest">10 - Service REST</h1>
 <p>L’architecture REST est un ensemble de conventions et de bonnes pratiques pour la création d’application Web via le protocole HTTP.<br>
 Dans une architecture REST, les communications sont de type client-serveur et stateless (sans état), c’est- à dire qu’il n’existe pas de session, chaque communication doit contenir l’ensemble des informations nécessaires à la réalisation de l’action.</p>
-<h1 id="flask-restplus">Flask RestPlus</h1>
+<h2 id="flask-restplus">Flask RestPlus</h2>
 <p>Flask Restplus est une extension de Flask qui permet de créer rapidement des API REST documentées et facilitant les tests.</p>
 <p>Elle permet de considérer les routes HTTP sous forme d’objet.</p>
 <p>Les routes sont des classes et les méthodes HTTP deviennent des méthodes de classe.<br>
@@ -1396,7 +1468,7 @@ En adoptant une structure de code définie, l’extension Flask Restplus est cap
 app <span class="token operator">=</span> Flask<span class="token punctuation">(</span>__name__<span class="token punctuation">)</span>
 api <span class="token operator">=</span> Api<span class="token punctuation">(</span>app<span class="token punctuation">)</span>
 </code></pre>
-<h2 id="usage-3">Usage</h2>
+<h2 id="usage-4">Usage</h2>
 <p>Flask-Restplus permet d’aborder les URI comme des ressources, ses ressources sont des objets qui héritent de la classe <code>Resource</code> et chaque méthode HTTP est une méthode de classe.</p>
 <p>Exemple via Flask :</p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask<span class="token punctuation">,</span> request
@@ -1456,7 +1528,7 @@ app
 Le dossier <code>api</code> est un <code>blueprint</code> qui contient notre API.</p>
 <p>Le dossier <code>endpoints</code> contiendra tous nos <code>namespaces</code> tandis que le dossier <code>serializers</code> contiendra les modèles de données attendues et retournées par notre API.</p>
 <p>On peut assimiler un <code>namespace</code> à un point de montage pour nos ressources.</p>
-<div class="mermaid"><svg xmlns="http://www.w3.org/2000/svg" id="mermaid-svg-Qa6NrC6aH2nX1oJq" width="100%" style="max-width: 675.96875px;" viewBox="0 0 675.96875 393"><g transform="translate(-12, -12)"><g class="output"><g class="clusters"></g><g class="edgePaths"><g class="edgePath" style="opacity: 1;"><path class="path" d="M123.88089139344262,203L194.03125,117L219.03125,117" marker-end="url(#arrowhead72)" style="fill:none"></path><defs><marker id="arrowhead72" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M169.03125,239L194.03125,239L219.03125,239" marker-end="url(#arrowhead73)" style="fill:none"></path><defs><marker id="arrowhead73" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M123.88089139344262,275L194.03125,361L219.390625,361" marker-end="url(#arrowhead74)" style="fill:none"></path><defs><marker id="arrowhead74" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M400.3053278688525,81L453.46875,56L478.46875,56" marker-end="url(#arrowhead75)" style="fill:none"></path><defs><marker id="arrowhead75" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M400.3053278688525,153L453.46875,178L478.8125,178" marker-end="url(#arrowhead76)" style="fill:none"></path><defs><marker id="arrowhead76" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g></g><g class="edgeLabels"><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g class="node" id="A" transform="translate(94.515625,239)" style="opacity: 1;"><rect rx="0" ry="0" x="-74.515625" y="-36" width="149.03125" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-64.515625,-26)"><foreignObject width="129.03125" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Blueprint</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="B" transform="translate(323.75,117)"><rect rx="0" ry="0" x="-104.71875" y="-36" width="209.4375" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-94.71875,-26)"><foreignObject width="189.4375" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Namespace 1</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="C" transform="translate(323.75,239)"><rect rx="0" ry="0" x="-104.71875" y="-36" width="209.4375" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-94.71875,-26)"><foreignObject width="189.4375" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Namespace 2</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="D" transform="translate(323.75,361)"><rect rx="0" ry="0" x="-104.359375" y="-36" width="208.71875" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-94.359375,-26)"><foreignObject width="188.71875" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Namespace n</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="E" transform="translate(579.21875,56)"><rect rx="0" ry="0" x="-100.75" y="-36" width="201.5" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-90.75,-26)"><foreignObject width="181.5" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Resource 1.1</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="F" transform="translate(579.21875,178)"><rect rx="0" ry="0" x="-100.40625" y="-36" width="200.8125" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-90.40625,-26)"><foreignObject width="180.8125" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Resource 1.n</div></foreignObject></g></g></g></g></g></g></svg></div>
+<div class="mermaid"><svg xmlns="http://www.w3.org/2000/svg" id="mermaid-svg-VbiQZjRpmL7ob5pJ" width="100%" style="max-width: 675.96875px;" viewBox="0 0 675.96875 393"><g transform="translate(-12, -12)"><g class="output"><g class="clusters"></g><g class="edgePaths"><g class="edgePath" style="opacity: 1;"><path class="path" d="M123.88089139344262,203L194.03125,117L219.03125,117" marker-end="url(#arrowhead53)" style="fill:none"></path><defs><marker id="arrowhead53" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M169.03125,239L194.03125,239L219.03125,239" marker-end="url(#arrowhead54)" style="fill:none"></path><defs><marker id="arrowhead54" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M123.88089139344262,275L194.03125,361L219.390625,361" marker-end="url(#arrowhead55)" style="fill:none"></path><defs><marker id="arrowhead55" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M400.3053278688525,81L453.46875,56L478.46875,56" marker-end="url(#arrowhead56)" style="fill:none"></path><defs><marker id="arrowhead56" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M400.3053278688525,153L453.46875,178L478.8125,178" marker-end="url(#arrowhead57)" style="fill:none"></path><defs><marker id="arrowhead57" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g></g><g class="edgeLabels"><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g class="node" id="A" transform="translate(94.515625,239)" style="opacity: 1;"><rect rx="0" ry="0" x="-74.515625" y="-36" width="149.03125" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-64.515625,-26)"><foreignObject width="129.03125" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Blueprint</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="B" transform="translate(323.75,117)"><rect rx="0" ry="0" x="-104.71875" y="-36" width="209.4375" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-94.71875,-26)"><foreignObject width="189.4375" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Namespace 1</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="C" transform="translate(323.75,239)"><rect rx="0" ry="0" x="-104.71875" y="-36" width="209.4375" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-94.71875,-26)"><foreignObject width="189.4375" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Namespace 2</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="D" transform="translate(323.75,361)"><rect rx="0" ry="0" x="-104.359375" y="-36" width="208.71875" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-94.359375,-26)"><foreignObject width="188.71875" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Namespace n</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="E" transform="translate(579.21875,56)"><rect rx="0" ry="0" x="-100.75" y="-36" width="201.5" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-90.75,-26)"><foreignObject width="181.5" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Resource 1.1</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="F" transform="translate(579.21875,178)"><rect rx="0" ry="0" x="-100.40625" y="-36" width="200.8125" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-90.40625,-26)"><foreignObject width="180.8125" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Resource 1.n</div></foreignObject></g></g></g></g></g></g></svg></div>
 <p>Commençons par le fichier <code>__init__.py</code> du dossier <code>api</code></p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> flask <span class="token keyword">import</span> Blueprint
 <span class="token keyword">from</span> flask_restplus <span class="token keyword">import</span> Api
