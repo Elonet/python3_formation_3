@@ -252,6 +252,7 @@ Fichier `app/templates/users.html`
 {% endblock %}
 ```
 
+Fichier `app/routes.py`
 ```python
 from flask import render_template
 from app import app
@@ -579,7 +580,7 @@ Fichier `app/templates/login.html`
 Appelons maintenant notre fichier `login.html` dans le fichier `routes.py`
 
 ```python
-from .forms import LoginForm()
+from .forms import LoginForm
 ...
 
 @app.route('/login')
