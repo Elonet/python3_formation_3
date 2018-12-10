@@ -1613,7 +1613,7 @@ def extensions(flask_app):
     db.init_app(flask_app)
     login.init_app(flask_app)
     bootstrap.init_app(flask_app)
-    login.login_view = 'login'
+    login.login_view = 'web.login'
     with flask_app.app_context():
         from .models import User
         db.create_all()
