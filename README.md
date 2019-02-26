@@ -18,7 +18,10 @@ Nous allons étudier Flask, l'avantage de Flask est que la courbe de progression
 Exemple d'une application affichant Hello World à l'adresse http://localhost:5552:
 ```python
 from flask import Flask
+
+
 app = Flask(__name__)
+
 @app.route("/")
 def hello():
     return "Hello World!"
@@ -52,15 +55,20 @@ pip install flask
 ## Routes
 
 Flask repose sur la notion de route, à chaque route correspond une fonction.
+
 Pour lier une fonction à une route, il suffit d'utiliser un décorateur `@app.route`
 
 Exemple :
 ```python
 from flask import Flask
+
+
 app = Flask(__name__)
+
 @app.route("/")
 def hello():
     return "Hello World!"
+
 @app.route("/toto")
 def toto():
     return "toto"
@@ -68,6 +76,7 @@ def toto():
 
 `@app.route` 
 permet de définir le comportement de l'application quand la route est appelée depuis le web.
+
 Il est possible de créer des routes avec des paramètres à l'aide `<`, `>` et en ajoutant le paramètre dans la fonction
 
 ```python
@@ -76,7 +85,8 @@ def book(book_id):
     return "Book #" + str(book_id)
 ```
 
-Ici nous avons défini un paramètre `book_id`.
+> Ici nous avons défini un paramètre `book_id`
+
 Par défaut les paramètres sont des strings.
 Il est possible de spécifier le type de paramètre attendu, exemple un int
 
@@ -183,9 +193,9 @@ def index():
 
 Le moteur de template Jinja2 nous permet de découper notre page en plusieurs fichiers et d'étendre des pages HTML.
 
-Cela nous permet par exemple d'éviter de recopier le corps de la page à chaque nouvelle page HTML créée.
+Cela nous permet par exemple d'éviter de recopier le corps de la page à chaque nouvelle page HTML crée.
 
-Pour réaliser cela, créons un fichier `base.html` qui contiendra un élément `content` destiné à afficher le reste de notre page web.
+Pour réaliser cela, créons un fichier `base.html` qui contiendra un bloc `content` destiné à afficher le reste de notre page web.
 
 Pour définir un bloc la syntaxe est `{% block <block_name> %}{% endblock %}`.
 
@@ -529,7 +539,7 @@ Chaque attribut de l'objet représente un champ du formulaire, et chaque attribu
 
 Le choix des champs est important, car `flask-wtf` va générer le code HTML du champ.
 
-Nous pouvons définir des règles de validation des champs, il suffit de spécifier le paramètre `validators` qui attend un tableau de règles de validation, ici `DataRequired`
+Nous pouvons définir des règles de validation des champs, il suffit de spécifier le paramètre `validators` qui attend un tableau de règles de validation, exemple `DataRequired`
 
 Créons un fichier `forms.py` qui contient un formulaire d'authentification.
 Le formulaire contient :
@@ -636,7 +646,7 @@ La version Flask de la bibliothèque s'appelle `flask-sqlalchemy`
 ## Installation
 
 ```
-pip install flask-slqalchemy
+pip install flask-sqlalchemy
 ```
 
 `flask-sqlalchemy` nécessite 2 configurations supplémentaires :
@@ -995,12 +1005,15 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     password_hash = db.Column(db.String(128), nullable=False)
+
     @property
     def password(self):
         return self.password_hash
+
     @password.setter
     def password(self, pwd):
         self.password_hash = generate_password_hash(pwd)
+
     def verify_password(self, pwd):
         return check_password_hash(self.password_hash, pwd)
 ```
@@ -1090,7 +1103,7 @@ def login():
         
         # Sinon on authentifie l'utilisateur
         login_user(user)
-        redirect('/')
+        return redirect('/')
         
     # Sinon on affiche le formulaire
     return render_template('login.html', title='Authentification', form=form)
@@ -1604,8 +1617,10 @@ from .extensions import db, login, bootstrap
 def create_app(config_name='default'):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
+
     from .public import blueprint as public_blueprint
     app.register_blueprint(public_blueprint)
+
     extensions(app)
     return app
 
@@ -1613,7 +1628,8 @@ def extensions(flask_app):
     db.init_app(flask_app)
     login.init_app(flask_app)
     bootstrap.init_app(flask_app)
-    login.login_view = 'web.login'
+    login.login_view = 'public.login'
+
     with flask_app.app_context():
         from .models import User
         db.create_all()
@@ -1674,12 +1690,14 @@ from .extensions import db, login, bootstrap
 def create_app(config_name='default'):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
+
     from .public import blueprint as public_blueprint
     app.register_blueprint(public_blueprint)
     
     if config_name == 'dev':
         from .dev import blueprint as dev_blueprint
         app.register_blueprint(dev_blueprint)
+    
     extensions(app)
     return app
 ```
@@ -1699,8 +1717,11 @@ Exemple :
 ```python
 from flask import Flask
 from flask_restplus import Resource, Api
+
+
 app = Flask(__name__)
 api = Api(app)
+
 @api.route('/hello')
 class HelloWorld(Resource):
     def get(self):
@@ -1710,6 +1731,7 @@ class HelloWorld(Resource):
 ## Swagger
 
 Swagger est une des plus grandes plus valu de l'extension Flask Restplus, Swagger est une documentation interactive de l'API. 
+
 En adoptant une structure de code définie, l'extension Flask Restplus est capable de générer la documentation à partir du code et ceux de manière transparente et automatique.
 
 Cette documentation est particulière utile pendant les phases de développement, car elle offre une IHM et une zone de test des fonctions de l'API, de plus il est possible de la désactiver en production.  
@@ -1731,6 +1753,8 @@ Il faut ensuite créer un objet `Api` et lui fournir notre application
 ```python
 from flask import Flask
 from flask_restplus import Api
+
+
 app = Flask(__name__)
 api = Api(app)
 ```
@@ -1742,7 +1766,10 @@ Flask-Restplus permet d'aborder les URI comme des ressources, ses ressources son
 Exemple via Flask :
 ```python
 from flask import Flask, request
+
+
 app = Flask(__name__)
+
 @app.route("/", methods = ['GET', 'POST', 'PUT', 'DELETE'])
 def hello():
     if request.method == 'GET':
@@ -1762,8 +1789,11 @@ Exemple via Flask-Restplus :
 ```python
 from flask import Flask
 from flask_restplus import Resource, Api
+
+
 app = Flask(__name__)
 api = Api(app)
+
 @api.route('/hello')
 class HelloWorld(Resource):
     def get(self):
@@ -1883,8 +1913,10 @@ from .extensions import db
 def create_app(config_name='default'):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
+
     from .api import blueprint as api_blueprint
     app.register_blueprint(api_blueprint)
+
     extensions(app)
     return app
 
@@ -1938,11 +1970,13 @@ from .. import api
 topic_post_model = api.model('Topic POST model', {
     'name': fields.String(required=True, min_length=4, max_length=32, description='Topic name')
 })
+
 topic_put_model = api.inherit('Topic PUT model', topic_post_model, {})
 topic_model = api.model('Topic model', {
     'id': fields.Integer(required=True, description='Topic unique ID'),
     'name': fields.String(required=True, description='Topic name')
 })
+
 topic_container_model = api.model('Topic container model', {
     'topics': fields.List(fields.Nested(topic_model), required=True, description='Topic list')
 })
@@ -2003,6 +2037,7 @@ api = Api(blueprint,
           description='Python micro service',
           doc='/'
           )
+
 from .endpoints.topics import ns as topics_namespace
 api.add_namespace(topics_namespace)
 ```
@@ -2020,6 +2055,7 @@ class TopicCollection(Resource):
         Return topic list
         """
         return {'topics': [t for t in Topic.query.all()]}
+    
     @ns.marshal_with(topic_model)
     @ns.expect(topic_post_model)
     def post(self):
@@ -2029,6 +2065,7 @@ class TopicCollection(Resource):
         data = request.json
         if Topic.query.filter_by(name=data['name']).first() is not None:
             abort(400, error='Name already exist')
+        
         t = Topic(name=data['name'])
         db.session.add(t)
         db.session.commit()
