@@ -9,7 +9,94 @@
 </head>
 
 <body class="stackedit">
-  <div class="stackedit__html"><h1 id="python-3-formation-3">Python 3 Formation 3</h1>
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#python-3-formation-3">Python 3 Formation 3</a></li>
+<li><a href="#introduction-au-web">Introduction au web</a></li>
+<li><a href="#flask">1- Flask</a>
+<ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#routes">Routes</a></li>
+<li><a href="#structure-de-code">Structure de code</a></li>
+</ul>
+</li>
+<li><a href="#templating">2 - Templating</a>
+<ul>
+<li><a href="#découpage-des-fichiers">Découpage des fichiers</a></li>
+<li><a href="#paramètres">Paramètres</a></li>
+<li><a href="#boucles">Boucles</a></li>
+<li><a href="#conditions">Conditions</a></li>
+<li><a href="#fichiers-statiques">Fichiers statiques</a></li>
+</ul>
+</li>
+<li><a href="#configuration">3 - Configuration</a>
+<ul>
+<li><a href="#usage">Usage</a></li>
+</ul>
+</li>
+<li><a href="#messages-flash">4 - Messages flash</a></li>
+<li><a href="#formulaires">5 - Formulaires</a>
+<ul>
+<li><a href="#installation-">Installation :</a></li>
+<li><a href="#usage-1">Usage</a></li>
+<li><a href="#récupérer-les-valeurs-dun-formulaire">Récupérer les valeurs d’un formulaire</a></li>
+</ul>
+</li>
+<li><a href="#orm">6 - ORM</a>
+<ul>
+<li><a href="#sqlalchemy">SQLAlchemy</a></li>
+<li><a href="#installation-1">Installation</a></li>
+<li><a href="#déclaration">Déclaration</a></li>
+<li><a href="#nom-de-table">Nom de table</a></li>
+<li><a href="#usage-2">Usage</a></li>
+<li><a href="#relations">Relations</a></li>
+</ul>
+</li>
+<li><a href="#authentification">7 - Authentification</a>
+<ul>
+<li><a href="#installation-2">Installation</a></li>
+<li><a href="#modèle">Modèle</a></li>
+<li><a href="#loader">Loader</a></li>
+<li><a href="#authentification-1">Authentification</a></li>
+<li><a href="#déconnexion">Déconnexion</a></li>
+<li><a href="#protection-des-routes">Protection des routes</a></li>
+</ul>
+</li>
+<li><a href="#bootstrap">8 - BootStrap</a>
+<ul>
+<li><a href="#installation-3">Installation</a></li>
+<li><a href="#usage-3">Usage</a></li>
+<li><a href="#formulaires-1">Formulaires</a></li>
+<li><a href="#navbar">Navbar</a></li>
+</ul>
+</li>
+<li><a href="#structure-de-code-1">9 - Structure de code</a>
+<ul>
+<li><a href="#fichier-de-configuration">Fichier de configuration</a></li>
+<li><a href="#usine-à-application">Usine à application</a></li>
+</ul>
+</li>
+<li><a href="#service-rest">10 - Service REST</a>
+<ul>
+<li><a href="#flask-restplus">Flask RestPlus</a></li>
+<li><a href="#swagger">Swagger</a></li>
+<li><a href="#postman">Postman</a></li>
+<li><a href="#installation-4">Installation</a></li>
+<li><a href="#usage-4">Usage</a></li>
+<li><a href="#structure-de-code-2">Structure de code</a></li>
+<li><a href="#serializers">Serializers</a></li>
+<li><a href="#endpoints">Endpoints</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="python-3-formation-3">Python 3 Formation 3</h1>
 <p><img src="https://elonet.fr/img/logo.png" alt="Elonet"></p>
 <h1 id="introduction-au-web">Introduction au web</h1>
 <p>L’une des forces de Python c’est qu’il existe des bibliothèques pour à peu près tout , nous avons vu comment interagir avec nos programmes depuis la console, voyons comment interagir depuis de web.</p>
@@ -1470,7 +1557,7 @@ app
 Le dossier <code>api</code> est un <code>blueprint</code> qui contient notre API.</p>
 <p>Le dossier <code>endpoints</code> contiendra tous nos <code>namespaces</code> tandis que le dossier <code>serializers</code> contiendra les modèles de données attendues et retournées par notre API.</p>
 <p>On peut assimiler un <code>namespace</code> à un point de montage pour nos ressources.</p>
-<div class="mermaid"><svg xmlns="http://www.w3.org/2000/svg" id="mermaid-svg-0ec18bNSJKdMpQJ8" width="100%" style="max-width: 675.96875px;" viewBox="0 0 675.96875 393"><g transform="translate(-12, -12)"><g class="output"><g class="clusters"></g><g class="edgePaths"><g class="edgePath" style="opacity: 1;"><path class="path" d="M123.88089139344262,203L194.03125,117L219.03125,117" marker-end="url(#arrowhead71)" style="fill:none"></path><defs><marker id="arrowhead71" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M169.03125,239L194.03125,239L219.03125,239" marker-end="url(#arrowhead72)" style="fill:none"></path><defs><marker id="arrowhead72" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M123.88089139344262,275L194.03125,361L219.390625,361" marker-end="url(#arrowhead73)" style="fill:none"></path><defs><marker id="arrowhead73" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M400.3053278688525,81L453.46875,56L478.46875,56" marker-end="url(#arrowhead74)" style="fill:none"></path><defs><marker id="arrowhead74" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M400.3053278688525,153L453.46875,178L478.8125,178" marker-end="url(#arrowhead75)" style="fill:none"></path><defs><marker id="arrowhead75" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g></g><g class="edgeLabels"><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g class="node" id="A" transform="translate(94.515625,239)" style="opacity: 1;"><rect rx="0" ry="0" x="-74.515625" y="-36" width="149.03125" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-64.515625,-26)"><foreignObject width="129.03125" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Blueprint</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="B" transform="translate(323.75,117)"><rect rx="0" ry="0" x="-104.71875" y="-36" width="209.4375" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-94.71875,-26)"><foreignObject width="189.4375" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Namespace 1</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="C" transform="translate(323.75,239)"><rect rx="0" ry="0" x="-104.71875" y="-36" width="209.4375" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-94.71875,-26)"><foreignObject width="189.4375" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Namespace 2</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="D" transform="translate(323.75,361)"><rect rx="0" ry="0" x="-104.359375" y="-36" width="208.71875" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-94.359375,-26)"><foreignObject width="188.71875" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Namespace n</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="E" transform="translate(579.21875,56)"><rect rx="0" ry="0" x="-100.75" y="-36" width="201.5" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-90.75,-26)"><foreignObject width="181.5" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Resource 1.1</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="F" transform="translate(579.21875,178)"><rect rx="0" ry="0" x="-100.40625" y="-36" width="200.8125" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-90.40625,-26)"><foreignObject width="180.8125" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Resource 1.n</div></foreignObject></g></g></g></g></g></g></svg></div>
+<div class="mermaid"><svg xmlns="http://www.w3.org/2000/svg" id="mermaid-svg-bMRSWSfdAbSEvoMQ" width="100%" style="max-width: 675.96875px;" viewBox="0 0 675.96875 393"><g transform="translate(-12, -12)"><g class="output"><g class="clusters"></g><g class="edgePaths"><g class="edgePath" style="opacity: 1;"><path class="path" d="M123.88089139344262,203L194.03125,117L219.03125,117" marker-end="url(#arrowhead128)" style="fill:none"></path><defs><marker id="arrowhead128" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M169.03125,239L194.03125,239L219.03125,239" marker-end="url(#arrowhead129)" style="fill:none"></path><defs><marker id="arrowhead129" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M123.88089139344262,275L194.03125,361L219.390625,361" marker-end="url(#arrowhead130)" style="fill:none"></path><defs><marker id="arrowhead130" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M400.3053278688525,81L453.46875,56L478.46875,56" marker-end="url(#arrowhead131)" style="fill:none"></path><defs><marker id="arrowhead131" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M400.3053278688525,153L453.46875,178L478.8125,178" marker-end="url(#arrowhead132)" style="fill:none"></path><defs><marker id="arrowhead132" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g></g><g class="edgeLabels"><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g class="node" id="A" transform="translate(94.515625,239)" style="opacity: 1;"><rect rx="0" ry="0" x="-74.515625" y="-36" width="149.03125" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-64.515625,-26)"><foreignObject width="129.03125" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Blueprint</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="B" transform="translate(323.75,117)"><rect rx="0" ry="0" x="-104.71875" y="-36" width="209.4375" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-94.71875,-26)"><foreignObject width="189.4375" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Namespace 1</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="C" transform="translate(323.75,239)"><rect rx="0" ry="0" x="-104.71875" y="-36" width="209.4375" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-94.71875,-26)"><foreignObject width="189.4375" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Namespace 2</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="D" transform="translate(323.75,361)"><rect rx="0" ry="0" x="-104.359375" y="-36" width="208.71875" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-94.359375,-26)"><foreignObject width="188.71875" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Namespace n</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="E" transform="translate(579.21875,56)"><rect rx="0" ry="0" x="-100.75" y="-36" width="201.5" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-90.75,-26)"><foreignObject width="181.5" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Resource 1.1</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="F" transform="translate(579.21875,178)"><rect rx="0" ry="0" x="-100.40625" y="-36" width="200.8125" height="72"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-90.40625,-26)"><foreignObject width="180.8125" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Resource 1.n</div></foreignObject></g></g></g></g></g></g></svg></div>
 <p>Commençons par le fichier <code>__init__.py</code> du dossier <code>api</code></p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> flask <span class="token keyword">import</span> Blueprint
 <span class="token keyword">from</span> flask_restplus <span class="token keyword">import</span> Api
@@ -1705,7 +1792,9 @@ Continuons notre fichier <code>topics.py</code>, et ajoutons l’accès, la modi
 </code></pre>
 <p>Flask-SQLAlchemy propose une méthode <code>get_or_404</code> qui permet de retourner automatique un 404 si une ressource n’existe pas.<br>
 Nous avons maintenant un micro service simplifié de gestion de topics.</p>
-</div>
+
+    </div>
+  </div>
 </body>
 
 </html>
