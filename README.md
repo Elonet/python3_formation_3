@@ -1998,6 +1998,7 @@ from flask import request, g, current_app
 from flask_restplus import Namespace, Resource, abort
 from ..serializers.topics import topic_post_model, topic_put_model, topic_container_model, topic_model
 from app.models import Topic
+from ...extensions import db
 
 ns = Namespace('topics', description='Topic related operation')
 
